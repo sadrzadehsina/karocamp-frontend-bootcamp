@@ -41,6 +41,8 @@ Horizontal rules: <hr>
 
 Emphasis: <strong>, <em>
 
+Image: <img />
+
 Comments: <!-- comment -->
 
 ### 🛠 Activities
