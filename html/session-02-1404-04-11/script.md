@@ -36,22 +36,3 @@
 ### 🛠 Stage 4 Activities
 
 - Create a recipe list or a schedule using tables
-
----
-
-## 📦 Stage 5: Forms and User Input
-
-### 📋 Stage 5 Goals
-
-- Collect input from users
-
-### 💡 Stage 5 Topics
-
-- **Form basics**: `<form>`, `action`, `method`
-- **Input types**: `<input type="text">`, `email`, `checkbox`, `radio`, `submit`
-- **Labels**: `<label>`
-- **Textareas, buttons, dropdowns**: `<textarea>`, `<select>`, `<option>`, `<button>`
-
-### 🛠 Stage 5 Activities
-
-- Build a basic contact form or registration form
