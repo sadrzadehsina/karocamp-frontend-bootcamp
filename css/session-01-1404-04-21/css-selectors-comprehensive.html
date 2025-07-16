@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors & Combinators - Comprehensive Guide</title>
+    <style>
+        /* Basic styles for the page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        /* 1. BASIC SELECTORS */
+        
+        /* Element Selector */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid #e74c3c;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #7f8c8d;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Class Selector */
+        .highlight {
+            background-color: #f1c40f;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .important {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .code-example {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Syntax highlighting for code examples */
+        .code-example .selector {
+            color: #f39c12;
+        }
+
+        .code-example .property {
+            color: #3498db;
+        }
+
+        .code-example .value {
+            color: #2ecc71;
+        }
+
+        .code-example .comment {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .code-example code {
+            color: inherit;
+            background: none;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .demo-box {
+            border: 2px solid #95a5a6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+        }
+
+        /* ID Selector */
+        #main-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #special-paragraph {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        /* 2. GROUPING SELECTORS */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Georgia', serif;
+        }
+
+        .warning, .error, .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        /* 3. DESCENDANT & CHILD SELECTORS */
+        
+        /* Descendant selector (space) - selects ALL descendants */
+        .parent-container p {
+            color: #8e44ad;
+            font-style: italic;
+        }
+
+        .parent-container span {
+            background-color: #f39c12;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* Direct child selector (>) - selects only DIRECT children */
+        .direct-parent > li {
+            background-color: #e8f5e8;
+            margin: 5px 0;
+            padding: 8px;
+            border-left: 3px solid #27ae60;
+        }
+
+        /* Nested lists won't be affected by direct child selector */
+        .direct-parent li li {
+            background-color: #fff;
+            border-left: 2px solid #95a5a6;
+        }
+
+        /* 4. PSEUDO-CLASSES */
+        
+        /* :hover pseudo-class */
+        .hover-demo {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .hover-demo:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* :focus pseudo-class */
+        .focus-demo {
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .focus-demo:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* :first-child and :last-child */
+        .child-demo li:first-child {
+            background-color: #e8f8f5;
+            border-left: 4px solid #16a085;
+            font-weight: bold;
+        }
+
+        .child-demo li:last-child {
+            background-color: #fdf2e9;
+            border-left: 4px solid #e67e22;
+            font-weight: bold;
+        }
+
+        .child-demo li {
+            padding: 8px;
+            margin: 3px 0;
+            background-color: #f8f9fa;
+            border-left: 2px solid #dee2e6;
+        }
+
+        /* :nth-child pseudo-class */
+        .nth-demo tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .nth-demo tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        .nth-demo th {
+            background-color: #343a40;
+            color: white;
+            padding: 10px;
+        }
+
+        .nth-demo td {
+            padding: 8px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nth-demo {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        /* 5. ATTRIBUTE SELECTORS */
+        
+        /* Basic attribute selector */
+        input[type="text"] {
+            background-color: #e8f4fd;
+            border: 2px solid #3498db;
+        }
+
+        input[type="email"] {
+            background-color: #fff2e8;
+            border: 2px solid #f39c12;
+        }
+
+        input[type="password"] {
+            background-color: #fde8e8;
+            border: 2px solid #e74c3c;
+        }
+
+        /* Attribute value contains */
+        a[href*="example"] {
+            color: #8e44ad;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a[href*="example"]:hover {
+            text-decoration: underline;
+        }
+
+        /* Attribute starts with */
+        a[href^="https"] {
+            padding-left: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zM3 6V3a5 5 0 0 1 10 0v3a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg>') no-repeat left center;
+        }
+
+        /* Attribute ends with */
+        a[href$=".pdf"] {
+            padding-left: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/></svg>') no-repeat left center;
+        }
+
+        /* Form styling */
+        .form-demo {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .form-demo label {
+            display: block;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .form-demo input, .form-demo textarea, .form-demo select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .code-example {
+                font-size: 12px;
+            }
+        }
+
+        /* Interactive elements */
+        .interactive-section {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .interactive-section h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            margin: 15px 0;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #229954;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-header">
+        <h1>CSS Selectors & Combinators - Comprehensive Guide</h1>
+        <p>Learn all types of CSS selectors with interactive examples</p>
+    </div>
+
+    <div class="container">
+        <h2>🎯 1. Basic Selectors</h2>
+        
+        <h3>Element Selector</h3>
+        <p>Selects all elements of a specific type. For example, all paragraphs, all headings, etc.</p>
+        <div class="code-example">
+            <pre><code>/* Selects all paragraphs */
+p {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Selects all h2 elements */
+h2 {
+    color: #34495e;
+    border-left: 4px solid #e74c3c;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <p>This paragraph is styled using the element selector <code>p</code>.</p>
+            <p>All paragraphs will have the same styling applied.</p>
+        </div>
+
+        <h3>Class Selector (.class)</h3>
+        <p>Selects elements with a specific class attribute. Classes can be applied to multiple elements.</p>
+        <div class="code-example">
+            <pre><code>/* Selects elements with class="highlight" */
+.highlight {
+    background-color: #f1c40f;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.important {
+    color: #e74c3c;
+    font-weight: bold;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <p>This text has a <span class="highlight">highlighted section</span> and an <span class="important">important note</span>.</p>
+            <p class="important">This entire paragraph is marked as important.</p>
+        </div>
+
+        <h3>ID Selector (#id)</h3>
+        <p>Selects a single element with a specific ID. IDs should be unique on a page.</p>
+        <div class="code-example">
+            <pre><code>/* Selects the element with id="special-paragraph" */
+#special-paragraph {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 15px;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <p id="special-paragraph">This paragraph has a unique ID and special styling that only applies to this element.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>👥 2. Grouping Selectors</h2>
+        
+        <p>You can apply the same styles to multiple selectors by separating them with commas.</p>
+        <div class="code-example">
+            <pre><code>/* Applies font-family to all heading elements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Georgia', serif;
+}
+
+/* Multiple classes with similar styling */
+.warning, .error, .alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <div class="warning">⚠️ This is a warning message</div>
+            <div class="error">❌ This is an error message</div>
+            <div class="alert">ℹ️ This is an alert message</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>👨‍👩‍👧‍👦 3. Descendant & Child Selectors</h2>
+        
+        <h3>Descendant Selector (space)</h3>
+        <p>Selects all elements that are descendants (children, grandchildren, etc.) of a specified element.</p>
+        <div class="code-example">
+            <pre><code>/* Selects all p elements inside .parent-container */
+.parent-container p {
+    color: #8e44ad;
+    font-style: italic;
+}
+
+/* Selects all span elements inside .parent-container */
+.parent-container span {
+    background-color: #f39c12;
+    padding: 2px 5px;
+}</code></pre>
+        </div>
+        <div class="demo-box parent-container">
+            <h4>Parent Container</h4>
+            <p>This paragraph is inside the parent container and will be styled.</p>
+            <div>
+                <p>This nested paragraph is also a descendant and will be styled.</p>
+                <span>This span is highlighted</span>
+            </div>
+        </div>
+
+        <h3>Direct Child Selector (>)</h3>
+        <p>Selects only direct children (not grandchildren or deeper descendants).</p>
+        <div class="code-example">
+            <pre><code>/* Selects only direct li children of .direct-parent */
+.direct-parent > li {
+    background-color: #e8f5e8;
+    border-left: 3px solid #27ae60;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <ul class="direct-parent">
+                <li>Direct child - will be styled
+                    <ul>
+                        <li>Nested child - won't be styled by direct child selector</li>
+                        <li>Another nested child - also not styled</li>
+                    </ul>
+                </li>
+                <li>Another direct child - will be styled</li>
+                <li>Third direct child - will be styled</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>✨ 4. Pseudo-classes</h2>
+        
+        <h3>:hover Pseudo-class</h3>
+        <p>Applies styles when a user hovers over an element.</p>
+        <div class="code-example">
+            <pre><code>.hover-demo:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <button class="hover-demo">Hover over me!</button>
+            <button class="hover-demo">Another hover button</button>
+        </div>
+
+        <h3>:focus Pseudo-class</h3>
+        <p>Applies styles when an element receives focus (like clicking on an input field).</p>
+        <div class="code-example">
+            <pre><code>.focus-demo:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <input type="text" class="focus-demo" placeholder="Click here to focus">
+            <input type="email" class="focus-demo" placeholder="Another focusable input">
+        </div>
+
+        <h3>:first-child and :last-child</h3>
+        <p>Selects the first or last child element of its parent.</p>
+        <div class="code-example">
+            <pre><code>.child-demo li:first-child {
+    background-color: #e8f8f5;
+    border-left: 4px solid #16a085;
+    font-weight: bold;
+}
+
+.child-demo li:last-child {
+    background-color: #fdf2e9;
+    border-left: 4px solid #e67e22;
+    font-weight: bold;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <ul class="child-demo">
+                <li>First item (special styling)</li>
+                <li>Second item (normal styling)</li>
+                <li>Third item (normal styling)</li>
+                <li>Fourth item (normal styling)</li>
+                <li>Last item (special styling)</li>
+            </ul>
+        </div>
+
+        <h3>:nth-child</h3>
+        <p>Selects elements based on their position. Great for creating striped tables or alternating patterns.</p>
+        <div class="code-example">
+            <pre><code>.nth-demo tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.nth-demo tr:nth-child(odd) {
+    background-color: #ffffff;
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <table class="nth-demo">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice</td>
+                        <td>25</td>
+                        <td>New York</td>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>30</td>
+                        <td>London</td>
+                    </tr>
+                    <tr>
+                        <td>Charlie</td>
+                        <td>35</td>
+                        <td>Paris</td>
+                    </tr>
+                    <tr>
+                        <td>Diana</td>
+                        <td>28</td>
+                        <td>Tokyo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🎯 5. Attribute Selectors</h2>
+        
+        <h3>Basic Attribute Selector [attribute="value"]</h3>
+        <p>Selects elements based on their attributes and values.</p>
+        <div class="code-example">
+            <pre><code>input[type="text"] {
+    background-color: #e8f4fd;
+    border: 2px solid #3498db;
+}
+
+input[type="email"] {
+    background-color: #fff2e8;
+    border: 2px solid #f39c12;
+}
+
+input[type="password"] {
+    background-color: #fde8e8;
+    border: 2px solid #e74c3c;
+}</code></pre>
+        </div>
+        <div class="demo-box form-demo">
+            <label for="name">Name (text input):</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            
+            <label for="email">Email (email input):</label>
+            <input type="email" id="email" placeholder="Enter your email">
+            
+            <label for="password">Password (password input):</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+
+        <h3>Advanced Attribute Selectors</h3>
+        <div class="code-example">
+            <pre><code>/* Contains substring */
+a[href*="example"] {
+    color: #8e44ad;
+    font-weight: bold;
+}
+
+/* Starts with */
+a[href^="https"] {
+    /* Secure link styling */
+}
+
+/* Ends with */
+a[href$=".pdf"] {
+    /* PDF link styling */
+}</code></pre>
+        </div>
+        <div class="demo-box">
+            <p>Links with different attribute patterns:</p>
+            <ul>
+                <li><a href="https://example.com">Secure example link (https + example)</a></li>
+                <li><a href="http://sample.com">Regular sample link</a></li>
+                <li><a href="https://test.com/document.pdf">PDF document (https + .pdf)</a></li>
+                <li><a href="mailto:contact@example.com">Email to example domain</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container interactive-section">
+        <h2>🎮 Interactive Practice Section</h2>
+        
+        <h3>Try It Yourself!</h3>
+        <p>This section demonstrates all selectors working together:</p>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" type="button">Primary Button</button>
+            <button class="btn btn-success" type="button">Success Button</button>
+            <button class="btn btn-danger" type="button">Danger Button</button>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin-top: 15px;">
+            <h4>Form Example with Multiple Selectors</h4>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter username">
+                
+                <label for="user-email">Email:</label>
+                <input type="email" id="user-email" name="email" placeholder="Enter email">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="3" placeholder="Enter your message"></textarea>
+                
+                <div class="button-group">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" class="btn btn-danger">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📚 Summary</h2>
+        <p>You've learned about all the essential CSS selectors:</p>
+        <ul style="line-height: 2;">
+            <li><strong>Element selectors</strong>: Target HTML elements directly</li>
+            <li><strong>Class selectors (.class)</strong>: Target elements with specific classes</li>
+            <li><strong>ID selectors (#id)</strong>: Target unique elements</li>
+            <li><strong>Grouping selectors (,)</strong>: Apply same styles to multiple selectors</li>
+            <li><strong>Descendant selectors (space)</strong>: Target nested elements</li>
+            <li><strong>Child selectors (>)</strong>: Target direct children only</li>
+            <li><strong>Pseudo-classes (:hover, :focus, etc.)</strong>: Target elements in specific states</li>
+            <li><strong>Attribute selectors ([attr="value"])</strong>: Target elements by their attributes</li>
+        </ul>
+        
+        <div class="demo-box" style="background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%); color: white; text-align: center;">
+            <h3>🎉 Congratulations!</h3>
+            <p>You now have a solid foundation in CSS selectors. Practice combining these selectors to create more specific and powerful styling rules!</p>
+        </div>
+    </div>
+</body>
+</html>
