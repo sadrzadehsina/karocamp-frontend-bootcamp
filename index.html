@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karocamp Frontend Bootcamp</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+          Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #24292f;
+        background-color: #ffffff;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid #d1d9e0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #0969da;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #656d76;
+        margin-bottom: 1rem;
+      }
+
+      .description {
+        max-width: 600px;
+        margin: 0 auto;
+        color: #656d76;
+      }
+
+      .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .topic-section {
+        background: #f6f8fa;
+        border: 1px solid #d1d9e0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .topic-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(140, 149, 159, 0.2);
+      }
+
+      .topic-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #24292f;
+        display: flex;
+        align-items: center;
+      }
+
+      .topic-icon {
+        font-size: 1.8rem;
+        margin-right: 0.5rem;
+      }
+
+      .sessions-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .session-card {
+        background: white;
+        border: 1px solid #d1d9e0;
+        border-radius: 8px;
+        padding: 1rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease;
+        display: block;
+      }
+
+      .session-card:hover {
+        background: #f6f8fa;
+        border-color: #0969da;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .session-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #0969da;
+      }
+
+      .session-date {
+        font-size: 0.85rem;
+        color: #656d76;
+        margin-bottom: 0.5rem;
+      }
+
+      .session-description {
+        font-size: 0.9rem;
+        color: #656d76;
+      }
+
+      .coming-soon {
+        background: #fff8e1;
+        border: 1px solid #ffc107;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .coming-soon-badge {
+        background: #ffc107;
+        color: #333;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .coming-soon-text {
+        margin-top: 0.5rem;
+        color: #856404;
+        font-size: 0.9rem;
+      }
+
+      .roadmap-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 3rem 2rem;
+        border-radius: 16px;
+        margin: 3rem 0;
+        text-align: center;
+      }
+
+      .roadmap-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .roadmap-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+      }
+
+      .roadmap-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .roadmap-step {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: transform 0.2s ease;
+      }
+
+      .roadmap-step:hover {
+        transform: translateY(-4px);
+      }
+
+      .step-number {
+        background: rgba(255, 255, 255, 0.2);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+
+      .step-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .step-description {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .step-status {
+        margin-top: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-available {
+        background: #28a745;
+        color: white;
+      }
+
+      .status-coming-soon {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      .calendar-section {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 3rem 0;
+      }
+
+      .calendar-title {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #24292f;
+      }
+
+      .calendar-subtitle {
+        text-align: center;
+        color: #656d76;
+        margin-bottom: 2rem;
+        font-size: 1rem;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .month-card {
+        background: white;
+        border: 1px solid #d1d9e0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .month-header {
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #0969da;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+      }
+
+      .days-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+        margin-top: 1rem;
+      }
+
+      .day-header {
+        background: #f6f8fa;
+        padding: 0.5rem 0.25rem;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #656d76;
+      }
+
+      .day-cell {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        position: relative;
+        cursor: default;
+      }
+
+      .day-number {
+        color: #24292f;
+      }
+
+      .day-empty {
+        color: #d1d9e0;
+      }
+
+      .day-session {
+        background: #0969da;
+        color: white;
+        font-weight: 600;
+      }
+
+      .day-start, .day-end {
+        background: #66BB6A;
+      }
+
+      .day-vacation {
+        background: #dc3545;
+        color: white;
+        font-weight: 600;
+      }
+
+      .calendar-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .legend-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+      }
+
+      .legend-session {
+        background: #0969da;
+      }
+
+      .legend-vacation {
+        background: #dc3545;
+      }
+
+      .legend-regular {
+        background: #f6f8fa;
+        border: 1px solid #d1d9e0;
+      }
+
+      @media (max-width: 768px) {
+        .calendar-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .calendar-legend {
+          gap: 1rem;
+        }
+      }
+
+      .github-link {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #d1d9e0;
+      }
+
+      .github-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        background: #24292f;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+      }
+
+      .github-button:hover {
+        background: #32383f;
+        color: white;
+        text-decoration: none;
+      }
+
+      .github-icon {
+        margin-right: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .topics-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .roadmap-steps {
+          grid-template-columns: 1fr;
+        }
+
+        .roadmap-section {
+          padding: 2rem 1rem;
+        }
+
+        .roadmap-title {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 Karocamp Frontend Bootcamp</h1>
+        <p class="subtitle">Complete Frontend Development Bootcamp</p>
+        <p class="description">
+          A comprehensive frontend development bootcamp covering HTML, CSS,
+          JavaScript, React, and Next.js. From fundamentals to modern web
+          applications - everything you need to become a frontend developer.
+        </p>
+      </header>
+
+      <div class="topics-grid">
+        <!-- HTML Section -->
+        <div class="topic-section">
+          <h2 class="topic-title">
+            <span class="topic-icon">📝</span>
+            HTML Fundamentals
+          </h2>
+          <div class="sessions-grid">
+            <a href="html/session-01-1404-04-04/script.md" class="session-card">
+              <div class="session-title">Session 1: Introduction to HTML</div>
+              <div class="session-date">April 4, 2024</div>
+              <div class="session-description">
+                Learn the basics of HTML, web structure, and document elements.
+                Build your first webpage with fundamental HTML tags.
+              </div>
+            </a>
+            <a href="html/session-02-1404-04-11/script.md" class="session-card">
+              <div class="session-title">Session 2: HTML Forms & Tables</div>
+              <div class="session-date">April 11, 2024</div>
+              <div class="session-description">
+                Master HTML forms, input elements, and table structures. Create
+                interactive forms and organize data with tables.
+              </div>
+            </a>
+            <a href="html/session-03-1404-04-18/script.md" class="session-card">
+              <div class="session-title">
+                Session 3: Semantic HTML & Accessibility
+              </div>
+              <div class="session-date">April 18, 2024</div>
+              <div class="session-description">
+                Explore semantic HTML elements, accessibility best practices,
+                and creating well-structured, meaningful web content.
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- CSS Section -->
+        <div class="topic-section">
+          <h2 class="topic-title">
+            <span class="topic-icon">🎨</span>
+            CSS Styling
+          </h2>
+          <div class="sessions-grid">
+            <a href="css/session-01-1404-04-21/script.md" class="session-card">
+              <div class="session-title">
+                Session 1: CSS Selectors & Combinators
+              </div>
+              <div class="session-date">April 21, 2024</div>
+              <div class="session-description">
+                Master CSS selectors, pseudo-classes, and combinators. Learn to
+                target and style specific elements effectively.
+              </div>
+            </a>
+            <a href="css/session-02-1404-04-25/script.md" class="session-card">
+              <div class="session-title">Session 2: Flexbox & Layout</div>
+              <div class="session-date">April 25, 2024</div>
+              <div class="session-description">
+                Dive into Flexbox layout system and modern CSS layout
+                techniques. Build responsive layouts and align content
+                perfectly.
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- JavaScript Section -->
+        <div class="topic-section">
+          <h2 class="topic-title">
+            <span class="topic-icon">⚡</span>
+            JavaScript Programming
+          </h2>
+          <div class="coming-soon">
+            <div class="coming-soon-badge">Coming Soon</div>
+            <div class="coming-soon-text">
+              Learn JavaScript fundamentals, DOM manipulation, async
+              programming, and ES6+ features
+            </div>
+          </div>
+        </div>
+
+        <!-- React Section -->
+        <div class="topic-section">
+          <h2 class="topic-title">
+            <span class="topic-icon">⚛️</span>
+            React Development
+          </h2>
+          <div class="coming-soon">
+            <div class="coming-soon-badge">Coming Soon</div>
+            <div class="coming-soon-text">
+              Master React components, hooks, state management, and modern React
+              patterns
+            </div>
+          </div>
+        </div>
+
+        <!-- Next.js Section -->
+        <div class="topic-section">
+          <h2 class="topic-title">
+            <span class="topic-icon">🚀</span>
+            Next.js Applications
+          </h2>
+          <div class="coming-soon">
+            <div class="coming-soon-badge">Coming Soon</div>
+            <div class="coming-soon-text">
+              Build full-stack applications with Next.js, SSR, API routes, and
+              deployment
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning Roadmap -->
+      <div class="roadmap-section">
+        <h2 class="roadmap-title">🗺️ Learning Roadmap</h2>
+        <p class="roadmap-subtitle">
+          Your journey from beginner to full-stack frontend developer
+        </p>
+
+        <div class="roadmap-steps">
+          <div class="roadmap-step">
+            <div class="step-number">1</div>
+            <div class="step-title">HTML Fundamentals</div>
+            <div class="step-description">
+              Structure and semantics of web pages
+            </div>
+            <div class="step-status status-available">Available Now</div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="step-number">2</div>
+            <div class="step-title">CSS Styling</div>
+            <div class="step-description">
+              Design, layout, and responsive web design
+            </div>
+            <div class="step-status status-available">Available Now</div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="step-number">3</div>
+            <div class="step-title">JavaScript Core</div>
+            <div class="step-description">
+              Programming logic and DOM manipulation
+            </div>
+            <div class="step-status status-coming-soon">Coming Soon</div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="step-number">4</div>
+            <div class="step-title">React Mastery</div>
+            <div class="step-description">Component-based UI development</div>
+            <div class="step-status status-coming-soon">Coming Soon</div>
+          </div>
+
+          <div class="roadmap-step">
+            <div class="step-number">5</div>
+            <div class="step-title">Next.js Projects</div>
+            <div class="step-description">Full-stack web applications</div>
+            <div class="step-status status-coming-soon">Coming Soon</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bootcamp Calendar -->
+      <div class="calendar-section">
+        <h2 class="calendar-title">📅 Bootcamp Schedule</h2>
+        <p class="calendar-subtitle">
+          33 Sessions | 66 Hours | Starting Tir 04, 1404
+        </p>
+
+        <div class="calendar-grid">
+          <!-- Tir 1404 -->
+          <div class="month-card">
+            <div class="month-header">تیر ۱۴۰۴</div>
+            <div class="days-grid">
+              <div class="day-header">ش</div>
+              <div class="day-header">ی</div>
+              <div class="day-header">د</div>
+              <div class="day-header">س</div>
+              <div class="day-header">چ</div>
+              <div class="day-header">پ</div>
+              <div class="day-header">ج</div>
+
+              <div class="day-cell day-empty">31</div>
+              <div class="day-cell day-empty">1</div>
+              <div class="day-cell day-empty">2</div>
+              <div class="day-cell day-empty">3</div>
+              <div class="day-cell day-session day-start">4</div>
+              <div class="day-cell day-number">5</div>
+              <div class="day-cell day-number">6</div>
+
+              <div class="day-cell day-session day-vacation">7</div>
+              <div class="day-cell day-number">8</div>
+              <div class="day-cell day-number">9</div>
+              <div class="day-cell day-number">10</div>
+              <div class="day-cell day-session">11</div>
+              <div class="day-cell day-number">12</div>
+              <div class="day-cell day-number">13</div>
+
+              <div class="day-cell day-session day-vacation">14</div>
+              <div class="day-cell day-number">15</div>
+              <div class="day-cell day-number">16</div>
+              <div class="day-cell day-number">17</div>
+              <div class="day-cell day-session">18</div>
+              <div class="day-cell day-number">19</div>
+              <div class="day-cell day-number">20</div>
+
+              <div class="day-cell day-session">21</div>
+              <div class="day-cell day-number">22</div>
+              <div class="day-cell day-number">23</div>
+              <div class="day-cell day-number">24</div>
+              <div class="day-cell day-session">25</div>
+              <div class="day-cell day-number">26</div>
+              <div class="day-cell day-number">27</div>
+
+              <div class="day-cell day-session">28</div>
+              <div class="day-cell day-number">29</div>
+              <div class="day-cell day-number">30</div>
+              <div class="day-cell day-number">31</div>
+              <div class="day-cell day-empty">1</div>
+              <div class="day-cell day-empty">2</div>
+              <div class="day-cell day-empty">3</div>
+            </div>
+          </div>
+
+          <div class="month-card">
+            <div class="month-header">مرداد ۱۴۰۴</div>
+            <div class="days-grid">
+              <div class="day-header">ش</div>
+              <div class="day-header">ی</div>
+              <div class="day-header">د</div>
+              <div class="day-header">س</div>
+              <div class="day-header">چ</div>
+              <div class="day-header">پ</div>
+              <div class="day-header">ج</div>
+
+              <div class="day-cell day-empty">28</div>
+              <div class="day-cell day-empty">29</div>
+              <div class="day-cell day-empty">30</div>
+              <div class="day-cell day-empty">31</div>
+              <div class="day-cell day-session">1</div>
+              <div class="day-cell day-number">2</div>
+              <div class="day-cell day-number">3</div>
+
+              <div class="day-cell day-session">4</div>
+              <div class="day-cell day-number">5</div>
+              <div class="day-cell day-number">6</div>
+              <div class="day-cell day-number">7</div>
+              <div class="day-cell day-session">8</div>
+              <div class="day-cell day-number">9</div>
+              <div class="day-cell day-number">10</div>
+
+              <div class="day-cell day-session">11</div>
+              <div class="day-cell day-number">12</div>
+              <div class="day-cell day-number">13</div>
+              <div class="day-cell day-number">14</div>
+              <div class="day-cell day-session">15</div>
+              <div class="day-cell day-number">16</div>
+              <div class="day-cell day-number">17</div>
+
+              <div class="day-cell day-session">18</div>
+              <div class="day-cell day-number">19</div>
+              <div class="day-cell day-number">20</div>
+              <div class="day-cell day-number">21</div>
+              <div class="day-cell day-session">22</div>
+              <div class="day-cell day-number">23</div>
+              <div class="day-cell day-number">24</div>
+
+              <div class="day-cell day-session">25</div>
+              <div class="day-cell day-number">26</div>
+              <div class="day-cell day-number">27</div>
+              <div class="day-cell day-number">28</div>
+              <div class="day-cell day-session">29</div>
+              <div class="day-cell day-number">30</div>
+              <div class="day-cell day-number">31</div>
+            </div>
+          </div>
+
+          <div class="month-card">
+            <div class="month-header">شهریور ۱۴۰۴</div>
+            <div class="days-grid">
+              <div class="day-header">ش</div>
+              <div class="day-header">ی</div>
+              <div class="day-header">د</div>
+              <div class="day-header">س</div>
+              <div class="day-header">چ</div>
+              <div class="day-header">پ</div>
+              <div class="day-header">ج</div>
+
+              <div class="day-cell day-number">1</div>
+              <div class="day-cell day-number">2</div>
+              <div class="day-cell day-number">3</div>
+              <div class="day-cell day-number">4</div>
+              <div class="day-cell day-session">5</div>
+              <div class="day-cell day-number">6</div>
+              <div class="day-cell day-number">7</div>
+
+              <div class="day-cell day-session">8</div>
+              <div class="day-cell day-number">9</div>
+              <div class="day-cell day-number">10</div>
+              <div class="day-cell day-number">11</div>
+              <div class="day-cell day-session">12</div>
+              <div class="day-cell day-number">13</div>
+              <div class="day-cell day-number">14</div>
+
+              <div class="day-cell day-session">15</div>
+              <div class="day-cell day-number">16</div>
+              <div class="day-cell day-number">17</div>
+              <div class="day-cell day-number">18</div>
+              <div class="day-cell day-session day-vacation">19</div>
+              <div class="day-cell day-number">20</div>
+              <div class="day-cell day-number">21</div>
+
+              <div class="day-cell day-session">22</div>
+              <div class="day-cell day-number">23</div>
+              <div class="day-cell day-number">24</div>
+              <div class="day-cell day-number">25</div>
+              <div class="day-cell day-session">26</div>
+              <div class="day-cell day-number">27</div>
+              <div class="day-cell day-number">28</div>
+
+              <div class="day-cell day-session">29</div>
+              <div class="day-cell day-number">30</div>
+              <div class="day-cell day-number">31</div>
+              <div class="day-cell day-empty">1</div>
+              <div class="day-cell day-empty">2</div>
+              <div class="day-cell day-empty">3</div>
+              <div class="day-cell day-empty">4</div>
+            </div>
+          </div>
+
+          <div class="month-card">
+            <div class="month-header">مهر ۱۴۰۴</div>
+            <div class="days-grid">
+              <div class="day-header">ش</div>
+              <div class="day-header">ی</div>
+              <div class="day-header">د</div>
+              <div class="day-header">س</div>
+              <div class="day-header">چ</div>
+              <div class="day-header">پ</div>
+              <div class="day-header">ج</div>
+
+              <div class="day-cell day-empty">29</div>
+              <div class="day-cell day-empty">30</div>
+              <div class="day-cell day-empty">31</div>
+              <div class="day-cell day-number">1</div>
+              <div class="day-cell day-session">2</div>
+              <div class="day-cell day-number">3</div>
+              <div class="day-cell day-number">4</div>
+
+              <div class="day-cell day-session">5</div>
+              <div class="day-cell day-number">6</div>
+              <div class="day-cell day-number">7</div>
+              <div class="day-cell day-number">8</div>
+              <div class="day-cell day-session">9</div>
+              <div class="day-cell day-number">10</div>
+              <div class="day-cell day-number">11</div>
+
+              <div class="day-cell day-session">12</div>
+              <div class="day-cell day-number">13</div>
+              <div class="day-cell day-number">14</div>
+              <div class="day-cell day-number">15</div>
+              <div class="day-cell day-session">16</div>
+              <div class="day-cell day-number">17</div>
+              <div class="day-cell day-number">18</div>
+
+              <div class="day-cell day-session">19</div>
+              <div class="day-cell day-number">20</div>
+              <div class="day-cell day-number">21</div>
+              <div class="day-cell day-number">22</div>
+              <div class="day-cell day-session">23</div>
+              <div class="day-cell day-number">24</div>
+              <div class="day-cell day-number">25</div>
+
+              <div class="day-cell day-session">26</div>
+              <div class="day-cell day-number">27</div>
+              <div class="day-cell day-number">28</div>
+              <div class="day-cell day-number">29</div>
+              <div class="day-cell day-session">30</div>
+              <div class="day-cell day-empty">1</div>
+              <div class="day-cell day-empty">2</div>
+            </div>
+          </div>
+
+          <div class="month-card">
+            <div class="month-header">آبان ۱۴۰۴</div>
+            <div class="days-grid">
+              <div class="day-header">ش</div>
+              <div class="day-header">ی</div>
+              <div class="day-header">د</div>
+              <div class="day-header">س</div>
+              <div class="day-header">چ</div>
+              <div class="day-header">پ</div>
+              <div class="day-header">ج</div>
+
+              <div class="day-cell day-empty">26</div>
+              <div class="day-cell day-empty">27</div>
+              <div class="day-cell day-empty">28</div>
+              <div class="day-cell day-empty">29</div>
+              <div class="day-cell day-empty">30</div>
+              <div class="day-cell day-number">1</div>
+              <div class="day-cell day-number">2</div>
+
+              <div class="day-cell day-session">3</div>
+              <div class="day-cell day-number">4</div>
+              <div class="day-cell day-number">5</div>
+              <div class="day-cell day-number">6</div>
+              <div class="day-cell day-session day-end">7</div>
+              <div class="day-cell day-number">8</div>
+              <div class="day-cell day-number">9</div>
+
+              <div class="day-cell day-number">10</div>
+              <div class="day-cell day-number">11</div>
+              <div class="day-cell day-number">12</div>
+              <div class="day-cell day-number">13</div>
+              <div class="day-cell day-number">14</div>
+              <div class="day-cell day-number">15</div>
+              <div class="day-cell day-number">16</div>
+
+              <div class="day-cell day-number">17</div>
+              <div class="day-cell day-number">18</div>
+              <div class="day-cell day-number">19</div>
+              <div class="day-cell day-number">20</div>
+              <div class="day-cell day-number">21</div>
+              <div class="day-cell day-number">22</div>
+              <div class="day-cell day-number">23</div>
+
+              <div class="day-cell day-number">24</div>
+              <div class="day-cell day-number">25</div>
+              <div class="day-cell day-number">26</div>
+              <div class="day-cell day-number">27</div>
+              <div class="day-cell day-number">28</div>
+              <div class="day-cell day-empty">29</div>
+              <div class="day-cell day-empty">30</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-legend">
+          <div class="legend-item">
+            <div class="legend-color legend-session"></div>
+            <span>Session Day</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color legend-vacation"></div>
+            <span>Vacation Break</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color legend-regular"></div>
+            <span>Regular Day</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="github-link">
+        <a
+          href="https://github.com/sadrzadehsina/karocamp-frontend-bootcamp"
+          class="github-button"
+        >
+          <span class="github-icon">⭐</span>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
