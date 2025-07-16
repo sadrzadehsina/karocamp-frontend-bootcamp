@@ -46,7 +46,6 @@ Create a biography page with styled paragraphs, titles, and custom fonts.
 - **What is the Box Model** (content, padding, border, margin)?
 - **Dimensions**: `width`, `height`
 - **Spacing**: `padding`, `margin`, `border`
-- **Box sizing**: `box-sizing: border-box`
 - **Outline vs border**
 
 ### 🛠 Practice Ideas
@@ -63,7 +62,7 @@ Design a profile card or content box using padding, margin, and borders.
 
 ### 💡 Topics
 
-- **Display types**: `block`, `inline`, `inline-block`, `none`
+- **Display types**: `block`, `inline`, `none`
 - **Positioning**: `static`, `relative`, `absolute`, `fixed`
 - **Layering**: `z-index`
 - **Overflow and visibility**: `overflow`, `visibility`
