@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #444;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 5px;
+        }
+
+        .demo-section {
+            background: white;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .flex-container {
+            background-color: #e8f4fd;
+            border: 2px solid #007acc;
+            padding: 10px;
+            margin: 10px 0;
+            min-height: 100px;
+        }
+
+        .flex-item {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .flex-item:nth-child(2) {
+            background-color: #4ecdc4;
+        }
+
+        .flex-item:nth-child(3) {
+            background-color: #45b7d1;
+        }
+
+        .flex-item:nth-child(4) {
+            background-color: #96ceb4;
+        }
+
+        .flex-item:nth-child(5) {
+            background-color: #feca57;
+        }
+
+        /* Basic Flexbox */
+        .basic-flex {
+            display: flex;
+        }
+
+        /* Direction Examples */
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flex-row-reverse {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            height: 200px;
+        }
+
+        .flex-column-reverse {
+            display: flex;
+            flex-direction: column-reverse;
+            height: 200px;
+        }
+
+        /* Wrap Examples */
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            width: 300px;
+        }
+
+        .flex-nowrap {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 300px;
+        }
+
+        .flex-wrap-reverse {
+            display: flex;
+            flex-wrap: wrap-reverse;
+            width: 300px;
+        }
+
+        /* Justify Content Examples */
+        .justify-start {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .justify-end {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .justify-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .justify-between {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .justify-around {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .justify-evenly {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        /* Align Items Examples */
+        .align-start {
+            display: flex;
+            align-items: flex-start;
+            height: 150px;
+        }
+
+        .align-end {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+        }
+
+        .align-center {
+            display: flex;
+            align-items: center;
+            height: 150px;
+        }
+
+        .align-baseline {
+            display: flex;
+            align-items: baseline;
+            height: 150px;
+        }
+
+        .align-stretch {
+            display: flex;
+            align-items: stretch;
+            height: 150px;
+        }
+
+        .align-stretch .flex-item {
+            height: auto;
+        }
+
+        /* Align Content Examples */
+        .align-content-start {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            height: 200px;
+            width: 250px;
+        }
+
+        .align-content-end {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-end;
+            height: 200px;
+            width: 250px;
+        }
+
+        .align-content-center {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            height: 200px;
+            width: 250px;
+        }
+
+        .align-content-between {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+            height: 200px;
+            width: 250px;
+        }
+
+        .align-content-around {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-around;
+            height: 200px;
+            width: 250px;
+        }
+
+        /* Flex Item Properties */
+        .flex-grow-demo {
+            display: flex;
+        }
+
+        .grow-1 {
+            flex-grow: 1;
+        }
+
+        .grow-2 {
+            flex-grow: 2;
+        }
+
+        .grow-3 {
+            flex-grow: 3;
+        }
+
+        .flex-shrink-demo {
+            display: flex;
+            width: 300px;
+        }
+
+        .shrink-0 {
+            flex-shrink: 0;
+            width: 150px;
+        }
+
+        .shrink-1 {
+            flex-shrink: 1;
+            width: 150px;
+        }
+
+        .shrink-2 {
+            flex-shrink: 2;
+            width: 150px;
+        }
+
+        .flex-basis-demo {
+            display: flex;
+        }
+
+        .basis-100 {
+            flex-basis: 100px;
+        }
+
+        .basis-200 {
+            flex-basis: 200px;
+        }
+
+        .basis-auto {
+            flex-basis: auto;
+        }
+
+        /* Align Self */
+        .align-self-demo {
+            display: flex;
+            height: 150px;
+        }
+
+        .self-start {
+            align-self: flex-start;
+        }
+
+        .self-end {
+            align-self: flex-end;
+        }
+
+        .self-center {
+            align-self: center;
+        }
+
+        .self-stretch {
+            align-self: stretch;
+        }
+
+        /* Practical Examples */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar .nav-links li {
+            margin: 0 15px;
+        }
+
+        .card-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            flex: 1 1 300px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .centered-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .property-label {
+            background-color: #007acc;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Flexbox Complete Guide</h1>
+
+        <!-- Introduction -->
+        <div class="demo-section">
+            <h2>1. Introduction to Flexbox</h2>
+            <p>Flexbox (Flexible Box Layout) is a powerful CSS layout method that provides an efficient way to arrange, distribute, and align items in a container, even when their size is unknown or dynamic.</p>
+            
+            <div class="code-block">
+.container {
+    display: flex; /* This makes the container a flex container */
+}
+            </div>
+
+            <div class="property-label">display: flex</div>
+            <div class="flex-container basic-flex">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+        </div>
+
+        <!-- Flex Direction -->
+        <div class="demo-section">
+            <h2>2. Flex Direction</h2>
+            <p>The <code>flex-direction</code> property defines the direction flex items are placed in the flex container.</p>
+
+            <div class="property-label">flex-direction: row (default)</div>
+            <div class="flex-container flex-row">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">flex-direction: row-reverse</div>
+            <div class="flex-container flex-row-reverse">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">flex-direction: column</div>
+            <div class="flex-container flex-column">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">flex-direction: column-reverse</div>
+            <div class="flex-container flex-column-reverse">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+        </div>
+
+        <!-- Flex Wrap -->
+        <div class="demo-section">
+            <h2>3. Flex Wrap</h2>
+            <p>The <code>flex-wrap</code> property controls whether flex items wrap to new lines when they exceed the container width.</p>
+
+            <div class="property-label">flex-wrap: nowrap (default)</div>
+            <div class="flex-container flex-nowrap">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+                <div class="flex-item">Item 4</div>
+            </div>
+
+            <div class="property-label">flex-wrap: wrap</div>
+            <div class="flex-container flex-wrap">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+                <div class="flex-item">Item 4</div>
+            </div>
+
+            <div class="property-label">flex-wrap: wrap-reverse</div>
+            <div class="flex-container flex-wrap-reverse">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+                <div class="flex-item">Item 4</div>
+            </div>
+        </div>
+
+        <!-- Justify Content -->
+        <div class="demo-section">
+            <h2>4. Justify Content</h2>
+            <p>The <code>justify-content</code> property aligns flex items along the main axis (horizontally by default).</p>
+
+            <div class="property-label">justify-content: flex-start (default)</div>
+            <div class="flex-container justify-start">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">justify-content: flex-end</div>
+            <div class="flex-container justify-end">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">justify-content: center</div>
+            <div class="flex-container justify-center">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">justify-content: space-between</div>
+            <div class="flex-container justify-between">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">justify-content: space-around</div>
+            <div class="flex-container justify-around">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+
+            <div class="property-label">justify-content: space-evenly</div>
+            <div class="flex-container justify-evenly">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+            </div>
+        </div>
+
+        <!-- Align Items -->
+        <div class="demo-section">
+            <h2>5. Align Items</h2>
+            <p>The <code>align-items</code> property aligns flex items along the cross axis (vertically by default).</p>
+
+            <div class="property-label">align-items: flex-start</div>
+            <div class="flex-container align-start">
+                <div class="flex-item">Short</div>
+                <div class="flex-item">Medium<br>Height</div>
+                <div class="flex-item">Tall<br>Content<br>Here</div>
+            </div>
+
+            <div class="property-label">align-items: flex-end</div>
+            <div class="flex-container align-end">
+                <div class="flex-item">Short</div>
+                <div class="flex-item">Medium<br>Height</div>
+                <div class="flex-item">Tall<br>Content<br>Here</div>
+            </div>
+
+            <div class="property-label">align-items: center</div>
+            <div class="flex-container align-center">
+                <div class="flex-item">Short</div>
+                <div class="flex-item">Medium<br>Height</div>
+                <div class="flex-item">Tall<br>Content<br>Here</div>
+            </div>
+
+            <div class="property-label">align-items: baseline</div>
+            <div class="flex-container align-baseline">
+                <div class="flex-item">Short</div>
+                <div class="flex-item">Medium<br>Height</div>
+                <div class="flex-item">Tall<br>Content<br>Here</div>
+            </div>
+
+            <div class="property-label">align-items: stretch (default)</div>
+            <div class="flex-container align-stretch">
+                <div class="flex-item">Short</div>
+                <div class="flex-item">Medium<br>Height</div>
+                <div class="flex-item">Tall<br>Content<br>Here</div>
+            </div>
+        </div>
+
+        <!-- Align Content -->
+        <div class="demo-section">
+            <h2>6. Align Content</h2>
+            <p>The <code>align-content</code> property aligns flex lines when there's extra space in the cross-axis (only works with multiple lines).</p>
+
+            <div class="property-label">align-content: flex-start</div>
+            <div class="flex-container align-content-start">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+                <div class="flex-item">4</div>
+            </div>
+
+            <div class="property-label">align-content: flex-end</div>
+            <div class="flex-container align-content-end">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+                <div class="flex-item">4</div>
+            </div>
+
+            <div class="property-label">align-content: center</div>
+            <div class="flex-container align-content-center">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+                <div class="flex-item">4</div>
+            </div>
+
+            <div class="property-label">align-content: space-between</div>
+            <div class="flex-container align-content-between">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+                <div class="flex-item">4</div>
+            </div>
+
+            <div class="property-label">align-content: space-around</div>
+            <div class="flex-container align-content-around">
+                <div class="flex-item">1</div>
+                <div class="flex-item">2</div>
+                <div class="flex-item">3</div>
+                <div class="flex-item">4</div>
+            </div>
+        </div>
+
+        <!-- Flex Item Properties -->
+        <div class="demo-section">
+            <h2>7. Flex Item Properties</h2>
+            
+            <h3>Flex Grow</h3>
+            <p>The <code>flex-grow</code> property defines how much a flex item should grow relative to other items.</p>
+            
+            <div class="property-label">flex-grow: 1, 2, 3</div>
+            <div class="flex-container flex-grow-demo">
+                <div class="flex-item grow-1">flex-grow: 1</div>
+                <div class="flex-item grow-2">flex-grow: 2</div>
+                <div class="flex-item grow-3">flex-grow: 3</div>
+            </div>
+
+            <h3>Flex Shrink</h3>
+            <p>The <code>flex-shrink</code> property defines how much a flex item should shrink relative to other items.</p>
+            
+            <div class="property-label">flex-shrink: 0, 1, 2</div>
+            <div class="flex-container flex-shrink-demo">
+                <div class="flex-item shrink-0">shrink: 0</div>
+                <div class="flex-item shrink-1">shrink: 1</div>
+                <div class="flex-item shrink-2">shrink: 2</div>
+            </div>
+
+            <h3>Flex Basis</h3>
+            <p>The <code>flex-basis</code> property defines the initial size of a flex item before free space is distributed.</p>
+            
+            <div class="property-label">flex-basis: 100px, 200px, auto</div>
+            <div class="flex-container flex-basis-demo">
+                <div class="flex-item basis-100">basis: 100px</div>
+                <div class="flex-item basis-200">basis: 200px</div>
+                <div class="flex-item basis-auto">basis: auto</div>
+            </div>
+
+            <h3>Align Self</h3>
+            <p>The <code>align-self</code> property allows individual flex items to override the align-items value.</p>
+            
+            <div class="property-label">align-self: flex-start, flex-end, center, stretch</div>
+            <div class="flex-container align-self-demo">
+                <div class="flex-item self-start">self-start</div>
+                <div class="flex-item self-end">self-end</div>
+                <div class="flex-item self-center">self-center</div>
+                <div class="flex-item self-stretch">self-stretch</div>
+            </div>
+        </div>
+
+        <!-- Practical Examples -->
+        <div class="demo-section">
+            <h2>8. Practical Examples</h2>
+            
+            <h3>Navigation Bar</h3>
+            <div class="navbar">
+                <div class="logo">MyWebsite</div>
+                <ul class="nav-links">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Services</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+            </div>
+
+            <h3>Card Layout</h3>
+            <div class="card-layout">
+                <div class="card">
+                    <h4>Card 1</h4>
+                    <p>This is a flexible card that will grow and shrink based on available space.</p>
+                </div>
+                <div class="card">
+                    <h4>Card 2</h4>
+                    <p>Each card has a minimum width of 300px but will grow to fill available space.</p>
+                </div>
+                <div class="card">
+                    <h4>Card 3</h4>
+                    <p>This creates a responsive layout without media queries.</p>
+                </div>
+            </div>
+
+            <div class="code-block">
+.card-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 300px; /* grow shrink basis */
+}
+            </div>
+
+            <h3>Perfect Centering</h3>
+            <div class="centered-content">
+                <div class="flex-item">Perfectly Centered Content</div>
+            </div>
+
+            <div class="code-block">
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+            </div>
+        </div>
+
+        <!-- Cheat Sheet -->
+        <div class="demo-section">
+            <h2>9. Flexbox Cheat Sheet</h2>
+            
+            <h3>Container Properties:</h3>
+            <div class="code-block">
+/* Make element a flex container */
+display: flex;
+
+/* Direction of items */
+flex-direction: row | row-reverse | column | column-reverse;
+
+/* Wrapping behavior */
+flex-wrap: nowrap | wrap | wrap-reverse;
+
+/* Shorthand for direction and wrap */
+flex-flow: &lt;direction&gt; &lt;wrap&gt;;
+
+/* Horizontal alignment */
+justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+
+/* Vertical alignment */
+align-items: stretch | flex-start | flex-end | center | baseline;
+
+/* Align wrapped lines */
+align-content: stretch | flex-start | flex-end | center | space-between | space-around;
+            </div>
+
+            <h3>Item Properties:</h3>
+            <div class="code-block">
+/* How much item should grow */
+flex-grow: &lt;number&gt;;
+
+/* How much item should shrink */
+flex-shrink: &lt;number&gt;;
+
+/* Initial size before growing/shrinking */
+flex-basis: &lt;length&gt; | auto;
+
+/* Shorthand for grow, shrink, basis */
+flex: &lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;;
+
+/* Override container's align-items for this item */
+align-self: auto | flex-start | flex-end | center | baseline | stretch;
+
+/* Change visual order without affecting HTML */
+order: &lt;number&gt;;
+            </div>
+        </div>
+    </div>
+</body>
+</html>
