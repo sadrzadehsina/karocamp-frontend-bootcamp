@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizing CSS Breakpoints</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    .breakpoint {
+      display: none;
+      margin: 1rem auto;
+      padding: 2rem;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+    /* Define breakpoint boxes */
+    @media (max-width: 479px) {
+      .small-mobile { display: block; background: #e74c3c; }
+    }
+    @media (min-width: 480px) and (max-width: 767px) {
+      .large-mobile { display: block; background: #e67e22; }
+    }
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .tablet { display: block; background: #f1c40f; color: #333; }
+    }
+    @media (min-width: 1024px) and (max-width: 1199px) {
+      .desktop { display: block; background: #3498db; }
+    }
+    @media (min-width: 1200px) {
+      .large-desktop { display: block; background: #2ecc71; }
+    }
+    @media print {
+      .print { display: block; background: #7f8c8d; }
+    }
+    /* Orientation example */
+    @media (orientation: landscape) and (max-width: 767px) {
+      .orientation { display: block; background: #9b59b6; }
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Breakpoints Visualized</h1>
+  <div class="breakpoint small-mobile">Small Mobile<br>(up to 479px)</div>
+  <div class="breakpoint large-mobile">Large Mobile<br>(480px - 767px)</div>
+  <div class="breakpoint tablet">Tablet<br>(768px - 1023px)</div>
+  <div class="breakpoint desktop">Desktop<br>(1024px - 1199px)</div>
+  <div class="breakpoint large-desktop">Large Desktop<br>(1200px and up)</div>
+  <div class="breakpoint print">Print Viewport</div>
+  <div class="breakpoint orientation">Landscape on Mobile/Tablet</div>
+  <p>Resize the browser window or print this page to see each breakpoint highlighted.</p>
+</body>
+</html>

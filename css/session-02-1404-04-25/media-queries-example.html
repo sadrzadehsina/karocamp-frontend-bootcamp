@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Media Queries Tutorial</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(45deg, #2196F3, #21CBF3);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Navigation */
+    .nav {
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: background 0.3s;
+    }
+
+    .nav-item:hover {
+      background: #2c3e50;
+    }
+
+    /* Content Sections */
+    .content {
+      padding: 2rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .section h2 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    /* Grid Layout Example */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .grid-item {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    /* Flexbox Example */
+    .flex-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ecf0f1;
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .flex-item {
+      background: #3498db;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+      flex: 1;
+      margin: 0 0.5rem;
+      text-align: center;
+    }
+
+    /* Visibility Classes */
+    .mobile-only,
+    .tablet-only,
+    .desktop-only {
+      display: none;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .current-breakpoint {
+      background: #e74c3c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 5px;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* Typography Example */
+    .typography h3 {
+      font-size: 2rem;
+    }
+    
+    .typography p {
+      font-size: 1.1rem;
+      margin: 1rem 0;
+    }
+
+    /* ==================== MEDIA QUERIES ==================== */
+
+    /* Large Desktop Screens (1200px and up) */
+    @media (min-width: 1200px) {
+      .desktop-only {
+        display: block;
+        background: #27ae60;
+        color: white;
+      }
+      
+      .current-breakpoint::after {
+        content: " - Large Desktop (1200px+)";
+      }
+      
+      .header h1 {
+        font-size: 3rem;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Desktop Screens (1024px to 1199px) */
+    @media (min-width: 1024px) and (max-width: 1199px) {
+      .desktop-only {
+        display: block;
+        background: #2980b9;
+        color: white;
+      }
+      
+      .current-breakpoint::after {
+        content: " - Desktop (1024px - 1199px)";
+      }
+      
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Tablet Screens (768px to 1023px) */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .tablet-only {
+        display: block;
+        background: #f39c12;
+        color: white;
+      }
+      
+      .current-breakpoint::after {
+        content: " - Tablet (768px - 1023px)";
+      }
+      
+      .header {
+        padding: 2rem 1rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .nav {
+        flex-direction: column;
+      }
+      
+      .flex-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .flex-item {
+        margin: 0;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .typography h3 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* Mobile Screens (480px to 767px) */
+    @media (min-width: 480px) and (max-width: 767px) {
+      .mobile-only {
+        display: block;
+        background: #e67e22;
+        color: white;
+      }
+      
+      .current-breakpoint::after {
+        content: " - Large Mobile (480px - 767px)";
+      }
+      
+      body {
+        padding: 10px;
+      }
+      
+      .header {
+        padding: 1.5rem 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .content {
+        padding: 1rem;
+      }
+      
+      .section {
+        padding: 1rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .typography h3 {
+        font-size: 1.4rem;
+      }
+      
+      .typography p {
+        font-size: 1rem;
+      }
+    }
+
+    /* Small Mobile Screens (up to 479px) */
+    @media (max-width: 479px) {
+      .mobile-only {
+        display: block;
+        background: #c0392b;
+        color: white;
+      }
+      
+      .current-breakpoint::after {
+        content: " - Small Mobile (up to 479px)";
+      }
+      
+      body {
+        padding: 5px;
+      }
+      
+      .header {
+        padding: 1rem 0.5rem;
+      }
+      
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .header p {
+        font-size: 1rem;
+      }
+      
+      .content {
+        padding: 0.5rem;
+      }
+      
+      .section {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+      }
+      
+      .nav-item {
+        padding: 0.8rem 1rem;
+        display: block;
+        text-align: center;
+      }
+      
+      .typography h3 {
+        font-size: 1.2rem;
+      }
+      
+      .typography p {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Print Media Query */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      
+      .nav,
+      .current-breakpoint,
+      .mobile-only,
+      .tablet-only,
+      .desktop-only {
+        display: none;
+      }
+      
+      .container {
+        box-shadow: none;
+      }
+    }
+
+    /* High DPI/Retina Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .grid-item {
+        border: 2px solid #3498db;
+      }
+    }
+
+    /* Landscape Orientation */
+    @media (orientation: landscape) and (max-width: 767px) {
+      .header {
+        padding: 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* Dark Mode Preference */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        filter: invert(1) hue-rotate(180deg);
+      }
+      
+      img, video {
+        filter: invert(1) hue-rotate(180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Media Queries Comprehensive Tutorial</h1>
+      <p>Resize your browser window to see different breakpoints in action!</p>
+    </header>
+
+    <nav class="nav">
+      <a href="#" class="nav-item">Home</a>
+      <a href="#" class="nav-item">About</a>
+      <a href="#" class="nav-item">Services</a>
+      <a href="#" class="nav-item">Portfolio</a>
+      <a href="#" class="nav-item">Contact</a>
+    </nav>
+
+    <main class="content">
+      <div class="current-breakpoint">
+        Current Breakpoint
+      </div>
+
+      <div class="mobile-only">
+        📱 You're viewing this on a MOBILE device! Notice how the layout stacks vertically and text becomes smaller.
+      </div>
+
+      <div class="tablet-only">
+        📱 You're viewing this on a TABLET device! The layout is optimized for medium screens.
+      </div>
+
+      <div class="desktop-only">
+        🖥️ You're viewing this on a DESKTOP device! The layout utilizes the full width available.
+      </div>
+
+      <section class="section">
+        <h2>1. Basic Responsive Grid</h2>
+        <p>This grid automatically adjusts the number of columns based on screen size:</p>
+        <div class="grid">
+          <div class="grid-item">
+            <h3>Card 1</h3>
+            <p>Responsive grid item that adapts to different screen sizes.</p>
+          </div>
+          <div class="grid-item">
+            <h3>Card 2</h3>
+            <p>Watch how the grid changes as you resize the browser.</p>
+          </div>
+          <div class="grid-item">
+            <h3>Card 3</h3>
+            <p>On mobile: 1 column, Tablet: 2 columns, Desktop: 3-4 columns.</p>
+          </div>
+          <div class="grid-item">
+            <h3>Card 4</h3>
+            <p>CSS Grid with auto-fit and minmax creates this behavior.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>2. Flexbox Layout Changes</h2>
+        <p>Flexbox direction changes from row to column on smaller screens:</p>
+        <div class="flex-container">
+          <div class="flex-item">Flex Item 1</div>
+          <div class="flex-item">Flex Item 2</div>
+          <div class="flex-item">Flex Item 3</div>
+        </div>
+      </section>
+
+      <section class="section typography">
+        <h2>3. Typography Scaling</h2>
+        <h3>This heading changes size based on screen width</h3>
+        <p>This paragraph text also scales down on smaller devices to maintain readability while conserving space. Media queries allow us to create optimal reading experiences across all device types.</p>
+        <p>Notice how font sizes, line heights, and spacing adjust automatically as you resize your browser window.</p>
+      </section>
+
+      <section class="section">
+        <h2>4. Media Query Breakpoints Used:</h2>
+        <ul style="margin: 1rem 0; padding-left: 2rem;">
+          <li><strong>Small Mobile:</strong> up to 479px</li>
+          <li><strong>Large Mobile:</strong> 480px - 767px</li>
+          <li><strong>Tablet:</strong> 768px - 1023px</li>
+          <li><strong>Desktop:</strong> 1024px - 1199px</li>
+          <li><strong>Large Desktop:</strong> 1200px and up</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>5. Advanced Media Query Features:</h2>
+        <ul style="margin: 1rem 0; padding-left: 2rem;">
+          <li>✅ <strong>Min/Max Width:</strong> Responsive breakpoints</li>
+          <li>✅ <strong>Orientation:</strong> Landscape vs Portrait</li>
+          <li>✅ <strong>High DPI:</strong> Retina display optimization</li>
+          <li>✅ <strong>Print Styles:</strong> Optimized for printing</li>
+          <li>✅ <strong>Dark Mode:</strong> Prefers-color-scheme support</li>
+          <li>✅ <strong>Range Queries:</strong> Between specific widths</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>6. Tips for Teaching Media Queries:</h2>
+        <ol style="margin: 1rem 0; padding-left: 2rem;">
+          <li>Always start with mobile-first approach</li>
+          <li>Use the browser's developer tools to test different screen sizes</li>
+          <li>Test on real devices when possible</li>
+          <li>Don't forget the viewport meta tag!</li>
+          <li>Consider touch interactions for mobile devices</li>
+          <li>Performance matters - optimize images and fonts for mobile</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Simple JavaScript to show current window width
+    function updateWidth() {
+      const width = window.innerWidth;
+      const breakpoint = document.querySelector('.current-breakpoint');
+      breakpoint.innerHTML = `Current Width: ${width}px`;
+    }
+
+    window.addEventListener('resize', updateWidth);
+    updateWidth(); // Initial call
+  </script>
+</body>
+</html>
