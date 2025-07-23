@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 3: Control Flow - Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 90vh;
+        }
+        .code-section, .output-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-section h2, .output-section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #FF9800;
+            padding-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            resize: vertical;
+        }
+        button {
+            background-color: #FF9800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 0 0;
+        }
+        button:hover {
+            background-color: #F57C00;
+        }
+        .clear-btn {
+            background-color: #f44336;
+        }
+        .clear-btn:hover {
+            background-color: #da190b;
+        }
+        #output {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .examples {
+            background-color: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+        .examples code {
+            background-color: #fce4ec;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>🟠 Stage 3: Control Flow (Conditions and Loops) - Interactive Playground</h1>
+    
+    <div class="examples">
+        <h3>📝 Quick Examples to Try:</h3>
+        <p><strong>If/Else:</strong> <code>if (age >= 18) { console.log("Adult"); } else { console.log("Minor"); }</code></p>
+        <p><strong>Switch:</strong> <code>switch(day) { case 1: console.log("Monday"); break; }</code></p>
+        <p><strong>For Loop:</strong> <code>for (let i = 0; i < 5; i++) { console.log(i); }</code></p>
+        <p><strong>While Loop:</strong> <code>let count = 0; while (count < 3) { console.log(count++); }</code></p>
+    </div>
+
+    <div class="container">
+        <div class="code-section">
+            <h2>💻 Write Your JavaScript Code</h2>
+            <textarea id="codeInput" placeholder="// Welcome to Stage 3 Playground!
+// Practice Control Flow: Conditions and Loops
+
+// 1. If/Else Statements
+let age = 20;
+if (age >= 18) {
+    console.log('You are an adult!');
+} else if (age >= 13) {
+    console.log('You are a teenager!');
+} else {
+    console.log('You are a child!');
+}
+
+// 2. Switch Statement
+let day = 3;
+switch (day) {
+    case 1:
+        console.log('Monday');
+        break;
+    case 2:
+        console.log('Tuesday');
+        break;
+    case 3:
+        console.log('Wednesday');
+        break;
+    default:
+        console.log('Other day');
+}
+
+// 3. For Loop
+console.log('\\nCounting with for loop:');
+for (let i = 1; i <= 5; i++) {
+    console.log('Count:', i);
+}
+
+// 4. While Loop
+console.log('\\nCounting down with while loop:');
+let countdown = 3;
+while (countdown > 0) {
+    console.log('Countdown:', countdown);
+    countdown--;
+}
+
+// 5. Array Loop
+let fruits = ['apple', 'banana', 'orange'];
+console.log('\\nFruits list:');
+for (let i = 0; i < fruits.length; i++) {
+    console.log((i + 1) + '. ' + fruits[i]);
+}
+
+// Your code here..."></textarea>
+            <button onclick="runCode()">▶️ Run Code</button>
+            <button onclick="clearCode()" class="clear-btn">🗑️ Clear Code</button>
+            <button onclick="loadExample()">📖 Load Example</button>
+        </div>
+        
+        <div class="output-section">
+            <h2>📤 Output</h2>
+            <div id="output"></div>
+            <button onclick="clearOutput()" class="clear-btn">🗑️ Clear Output</button>
+        </div>
+    </div>
+
+    <script>
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            // Clear previous output
+            output.textContent = '';
+            
+            // Capture console.log output
+            const originalLog = console.log;
+            const logs = [];
+            
+            console.log = function(...args) {
+                logs.push(args.map(arg => 
+                    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+                ).join(' '));
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                // Execute the code
+                eval(code);
+                
+                // Display captured logs
+                if (logs.length > 0) {
+                    output.textContent = logs.join('\n');
+                } else {
+                    output.textContent = 'Code executed successfully (no console output)';
+                }
+            } catch (error) {
+                output.textContent = `❌ Error: ${error.message}`;
+                output.style.color = 'red';
+            } finally {
+                // Restore original console.log
+                console.log = originalLog;
+                output.style.color = 'black';
+            }
+        }
+        
+        function clearCode() {
+            document.getElementById('codeInput').value = '';
+        }
+        
+        function clearOutput() {
+            document.getElementById('output').textContent = '';
+        }
+        
+        function loadExample() {
+            const examples = [
+                `// Number Guessing Game
+let secretNumber = Math.floor(Math.random() * 10) + 1;
+let userGuess = parseInt(prompt('Guess a number between 1-10:') || '5');
+let attempts = 1;
+
+console.log('=== Number Guessing Game ===');
+console.log('Secret number:', secretNumber);
+console.log('Your guess:', userGuess);
+
+if (userGuess === secretNumber) {
+    console.log('🎉 Congratulations! You got it right!');
+} else if (userGuess < secretNumber) {
+    console.log('📈 Too low! The number was', secretNumber);
+} else {
+    console.log('📉 Too high! The number was', secretNumber);
+}
+
+console.log('Thanks for playing!');`,
+
+                `// Multiplication Table Generator
+let number = parseInt(prompt('Enter a number for multiplication table:') || '5');
+
+console.log('=== Multiplication Table for', number, '===');
+
+for (let i = 1; i <= 10; i++) {
+    let result = number * i;
+    console.log(number + ' × ' + i + ' = ' + result);
+}
+
+console.log('\\n=== Using While Loop ===');
+let j = 1;
+while (j <= 5) {
+    console.log(number + ' × ' + j + ' = ' + (number * j));
+    j++;
+}`,
+
+                `// Grade Calculator with Multiple Conditions
+let score = parseInt(prompt('Enter your score (0-100):') || '85');
+
+console.log('=== Grade Calculator ===');
+console.log('Your score:', score);
+
+// Using if-else if chain
+if (score >= 90) {
+    console.log('Grade: A (Excellent!)');
+} else if (score >= 80) {
+    console.log('Grade: B (Good job!)');
+} else if (score >= 70) {
+    console.log('Grade: C (Not bad!)');
+} else if (score >= 60) {
+    console.log('Grade: D (Need improvement)');
+} else {
+    console.log('Grade: F (Study harder!)');
+}
+
+// Using switch for letter grades
+let letterGrade;
+if (score >= 90) letterGrade = 'A';
+else if (score >= 80) letterGrade = 'B';
+else if (score >= 70) letterGrade = 'C';
+else if (score >= 60) letterGrade = 'D';
+else letterGrade = 'F';
+
+switch (letterGrade) {
+    case 'A':
+        console.log('🏆 Outstanding performance!');
+        break;
+    case 'B':
+        console.log('👍 Great work!');
+        break;
+    case 'C':
+        console.log('👌 Satisfactory');
+        break;
+    case 'D':
+        console.log('⚠️ Needs improvement');
+        break;
+    case 'F':
+        console.log('❌ Failed - please retake');
+        break;
+}`,
+
+                `// Loop Control with Break and Continue
+console.log('=== Loop Control Demo ===');
+
+// Using continue to skip even numbers
+console.log('Odd numbers only (using continue):');
+for (let i = 1; i <= 10; i++) {
+    if (i % 2 === 0) {
+        continue; // Skip even numbers
+    }
+    console.log('Odd number:', i);
+}
+
+// Using break to stop loop early
+console.log('\\nStop at first number divisible by 7:');
+for (let i = 1; i <= 20; i++) {
+    if (i % 7 === 0) {
+        console.log('Found it!', i, 'is divisible by 7');
+        break; // Stop the loop
+    }
+    console.log('Checking:', i);
+}
+
+// Nested loops example
+console.log('\\nNested loops - Creating a pattern:');
+for (let row = 1; row <= 3; row++) {
+    let pattern = '';
+    for (let col = 1; col <= row; col++) {
+        pattern += '⭐ ';
+    }
+    console.log('Row', row + ':', pattern);
+}`
+            ];
+            
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('codeInput').value = randomExample;
+        }
+        
+        // Load default example on page load
+        window.onload = function() {
+            // The textarea already has default content
+        };
+    </script>
+</body>
+</html>

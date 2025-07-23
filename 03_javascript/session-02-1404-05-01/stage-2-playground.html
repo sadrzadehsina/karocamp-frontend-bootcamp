@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 2: Variables, Data Types, and Operators - Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 90vh;
+        }
+        .code-section, .output-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-section h2, .output-section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 0 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .clear-btn {
+            background-color: #f44336;
+        }
+        .clear-btn:hover {
+            background-color: #da190b;
+        }
+        #output {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .examples {
+            background-color: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .examples code {
+            background-color: #f1f8e9;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>🟡 Stage 2: Variables, Data Types, and Operators - Interactive Playground</h1>
+    
+    <div class="examples">
+        <h3>📝 Quick Examples to Try:</h3>
+        <p><strong>Variables:</strong> <code>let name = "John"; const age = 25;</code></p>
+        <p><strong>Data Types:</strong> <code>console.log(typeof "hello", typeof 42, typeof true);</code></p>
+        <p><strong>Operators:</strong> <code>console.log(10 + 5, "Hello" + " World", 15 > 10);</code></p>
+        <p><strong>Calculator:</strong> <code>let result = (10 + 5) * 2; console.log("Result:", result);</code></p>
+    </div>
+
+    <div class="container">
+        <div class="code-section">
+            <h2>💻 Write Your JavaScript Code</h2>
+            <textarea id="codeInput" placeholder="// Welcome to Stage 2 Playground!
+// Try these examples:
+
+// 1. Variables and Data Types
+let studentName = 'Alice';
+const studentAge = 20;
+let isEnrolled = true;
+
+console.log('Name:', studentName);
+console.log('Age:', studentAge);
+console.log('Enrolled:', isEnrolled);
+console.log('Type of name:', typeof studentName);
+
+// 2. Basic Calculator
+let num1 = 15;
+let num2 = 7;
+console.log('Addition:', num1 + num2);
+console.log('Subtraction:', num1 - num2);
+console.log('Multiplication:', num1 * num2);
+console.log('Division:', num1 / num2);
+
+// 3. Comparison and Logical Operators
+console.log('15 > 7:', num1 > num2);
+console.log('15 === 15:', num1 === 15);
+console.log('true && false:', true && false);
+console.log('true || false:', true || false);
+
+// Your code here..."></textarea>
+            <button onclick="runCode()">▶️ Run Code</button>
+            <button onclick="clearCode()" class="clear-btn">🗑️ Clear Code</button>
+            <button onclick="loadExample()">📖 Load Example</button>
+        </div>
+        
+        <div class="output-section">
+            <h2>📤 Output</h2>
+            <div id="output"></div>
+            <button onclick="clearOutput()" class="clear-btn">🗑️ Clear Output</button>
+        </div>
+    </div>
+
+    <script>
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            // Clear previous output
+            output.textContent = '';
+            
+            // Capture console.log output
+            const originalLog = console.log;
+            const logs = [];
+            
+            console.log = function(...args) {
+                logs.push(args.map(arg => 
+                    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+                ).join(' '));
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                // Execute the code
+                eval(code);
+                
+                // Display captured logs
+                if (logs.length > 0) {
+                    output.textContent = logs.join('\n');
+                } else {
+                    output.textContent = 'Code executed successfully (no console output)';
+                }
+            } catch (error) {
+                output.textContent = `❌ Error: ${error.message}`;
+                output.style.color = 'red';
+            } finally {
+                // Restore original console.log
+                console.log = originalLog;
+                output.style.color = 'black';
+            }
+        }
+        
+        function clearCode() {
+            document.getElementById('codeInput').value = '';
+        }
+        
+        function clearOutput() {
+            document.getElementById('output').textContent = '';
+        }
+        
+        function loadExample() {
+            const examples = [
+                `// About Me Data Logger
+let firstName = 'John';
+let lastName = 'Doe';
+let age = 25;
+let city = 'New York';
+let isStudent = true;
+
+console.log('=== About Me ===');
+console.log('Full Name:', firstName + ' ' + lastName);
+console.log('Age:', age);
+console.log('City:', city);
+console.log('Student Status:', isStudent ? 'Yes' : 'No');
+console.log('Data Type of age:', typeof age);`,
+
+                `// Basic Calculator
+let num1 = parseFloat(prompt('Enter first number:') || '10');
+let num2 = parseFloat(prompt('Enter second number:') || '5');
+
+console.log('=== Calculator Results ===');
+console.log('Numbers:', num1, 'and', num2);
+console.log('Addition:', num1 + num2);
+console.log('Subtraction:', num1 - num2);
+console.log('Multiplication:', num1 * num2);
+console.log('Division:', num1 / num2);
+console.log('Remainder:', num1 % num2);
+
+// Comparison
+console.log('\\n=== Comparisons ===');
+console.log(num1, '>', num2, ':', num1 > num2);
+console.log(num1, '===', num2, ':', num1 === num2);`,
+
+                `// Variable Types Exploration
+let message = 'Hello World';
+let count = 42;
+let price = 19.99;
+let isActive = true;
+let data = null;
+let notDefined;
+
+console.log('=== Variable Types ===');
+console.log('message:', message, '(type:', typeof message + ')');
+console.log('count:', count, '(type:', typeof count + ')');
+console.log('price:', price, '(type:', typeof price + ')');
+console.log('isActive:', isActive, '(type:', typeof isActive + ')');
+console.log('data:', data, '(type:', typeof data + ')');
+console.log('notDefined:', notDefined, '(type:', typeof notDefined + ')');
+
+// Type conversion
+console.log('\\n=== Type Conversion ===');
+console.log('String + Number:', message + count);
+console.log('Number + Boolean:', count + isActive);
+console.log('String to Number:', Number('123'));`
+            ];
+            
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('codeInput').value = randomExample;
+        }
+        
+        // Load default example on page load
+        window.onload = function() {
+            // The textarea already has default content
+        };
+    </script>
+</body>
+</html>

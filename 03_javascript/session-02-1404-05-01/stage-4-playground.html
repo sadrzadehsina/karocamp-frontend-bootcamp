@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage 4: Functions - Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 90vh;
+        }
+        .code-section, .output-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-section h2, .output-section h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #9C27B0;
+            padding-bottom: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            resize: vertical;
+        }
+        button {
+            background-color: #9C27B0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 0 0;
+        }
+        button:hover {
+            background-color: #7B1FA2;
+        }
+        .clear-btn {
+            background-color: #f44336;
+        }
+        .clear-btn:hover {
+            background-color: #da190b;
+        }
+        #output {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        .examples {
+            background-color: #f3e5f5;
+            border-left: 4px solid #9C27B0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .examples h3 {
+            margin-top: 0;
+            color: #4a148c;
+        }
+        .examples code {
+            background-color: #e1bee7;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>🟣 Stage 4: Functions - Interactive Playground</h1>
+    
+    <div class="examples">
+        <h3>📝 Quick Examples to Try:</h3>
+        <p><strong>Function Declaration:</strong> <code>function greet(name) { return "Hello " + name; }</code></p>
+        <p><strong>Function Expression:</strong> <code>const add = function(a, b) { return a + b; };</code></p>
+        <p><strong>Arrow Function:</strong> <code>const multiply = (a, b) => a * b;</code></p>
+        <p><strong>Call Function:</strong> <code>console.log(greet("Alice"));</code></p>
+    </div>
+
+    <div class="container">
+        <div class="code-section">
+            <h2>💻 Write Your JavaScript Code</h2>
+            <textarea id="codeInput" placeholder="// Welcome to Stage 4 Playground!
+// Learn about Functions: Organize and Reuse Code
+
+// 1. Function Declaration
+function greetUser(name) {
+    return 'Hello, ' + name + '! Welcome to our app.';
+}
+
+// Test the function
+console.log(greetUser('Alice'));
+console.log(greetUser('Bob'));
+
+// 2. Function with Multiple Parameters
+function calculateTax(price, taxRate) {
+    let tax = price * (taxRate / 100);
+    let total = price + tax;
+    return {
+        price: price,
+        tax: tax,
+        total: total
+    };
+}
+
+// Test tax calculator
+let result = calculateTax(100, 8.5);
+console.log('Price: $' + result.price);
+console.log('Tax: $' + result.tax.toFixed(2));
+console.log('Total: $' + result.total.toFixed(2));
+
+// 3. Arrow Functions
+const multiply = (a, b) => a * b;
+const square = x => x * x;
+
+console.log('Multiply 5 × 3:', multiply(5, 3));
+console.log('Square of 7:', square(7));
+
+// 4. Function Scope Example
+let globalVar = 'I am global';
+
+function scopeExample() {
+    let localVar = 'I am local';
+    console.log('Inside function:', globalVar); // Can access global
+    console.log('Inside function:', localVar);  // Can access local
+}
+
+scopeExample();
+console.log('Outside function:', globalVar); // Can access global
+// console.log(localVar); // This would cause an error!
+
+// Your code here..."></textarea>
+            <button onclick="runCode()">▶️ Run Code</button>
+            <button onclick="clearCode()" class="clear-btn">🗑️ Clear Code</button>
+            <button onclick="loadExample()">📖 Load Example</button>
+        </div>
+        
+        <div class="output-section">
+            <h2>📤 Output</h2>
+            <div id="output"></div>
+            <button onclick="clearOutput()" class="clear-btn">🗑️ Clear Output</button>
+        </div>
+    </div>
+
+    <script>
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            // Clear previous output
+            output.textContent = '';
+            
+            // Capture console.log output
+            const originalLog = console.log;
+            const logs = [];
+            
+            console.log = function(...args) {
+                logs.push(args.map(arg => 
+                    typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+                ).join(' '));
+                originalLog.apply(console, args);
+            };
+            
+            try {
+                // Execute the code
+                eval(code);
+                
+                // Display captured logs
+                if (logs.length > 0) {
+                    output.textContent = logs.join('\n');
+                } else {
+                    output.textContent = 'Code executed successfully (no console output)';
+                }
+            } catch (error) {
+                output.textContent = `❌ Error: ${error.message}`;
+                output.style.color = 'red';
+            } finally {
+                // Restore original console.log
+                console.log = originalLog;
+                output.style.color = 'black';
+            }
+        }
+        
+        function clearCode() {
+            document.getElementById('codeInput').value = '';
+        }
+        
+        function clearOutput() {
+            document.getElementById('output').textContent = '';
+        }
+        
+        function loadExample() {
+            const examples = [
+                `// Tax and Discount Calculator
+function calculateDiscount(price, discountPercent) {
+    let discount = price * (discountPercent / 100);
+    let finalPrice = price - discount;
+    
+    return {
+        originalPrice: price,
+        discount: discount,
+        discountPercent: discountPercent,
+        finalPrice: finalPrice
+    };
+}
+
+function calculateTax(price, taxRate) {
+    let tax = price * (taxRate / 100);
+    return price + tax;
+}
+
+// Test the functions
+console.log('=== Discount Calculator ===');
+let item = calculateDiscount(100, 20);
+console.log('Original: $' + item.originalPrice);
+console.log('Discount (' + item.discountPercent + '%): -$' + item.discount);
+console.log('Final Price: $' + item.finalPrice);
+
+console.log('\\n=== Tax Calculator ===');
+let priceWithTax = calculateTax(item.finalPrice, 8.5);
+console.log('After Tax: $' + priceWithTax.toFixed(2));`,
+
+                `// Greeting Functions with Different Styles
+// Function Declaration
+function greetUser(name, timeOfDay) {
+    if (!name) {
+        return 'Hello, Guest!';
+    }
+    
+    let greeting;
+    switch (timeOfDay) {
+        case 'morning':
+            greeting = 'Good morning';
+            break;
+        case 'afternoon':
+            greeting = 'Good afternoon';
+            break;
+        case 'evening':
+            greeting = 'Good evening';
+            break;
+        default:
+            greeting = 'Hello';
+    }
+    
+    return greeting + ', ' + name + '!';
+}
+
+// Function Expression
+const greetFormal = function(name, title) {
+    title = title || 'Sir/Madam';
+    return 'Good day, ' + title + ' ' + name + '.';
+};
+
+// Arrow Functions
+const greetCasual = name => 'Hey ' + name + '! 👋';
+const greetEnthusiastic = (name) => {
+    return 'HELLO ' + name.toUpperCase() + '! 🎉🎉🎉';
+};
+
+// Test all greeting styles
+console.log('=== Different Greeting Styles ===');
+console.log(greetUser('Alice', 'morning'));
+console.log(greetUser('Bob', 'evening'));
+console.log(greetUser()); // No name provided
+console.log(greetFormal('Johnson', 'Dr.'));
+console.log(greetCasual('Charlie'));
+console.log(greetEnthusiastic('diana'));`,
+
+                `// Function Scope and Closures Demo
+let globalCounter = 0;
+
+function outerFunction(x) {
+    let outerVariable = x;
+    
+    function innerFunction(y) {
+        let innerVariable = y;
+        globalCounter++;
+        
+        console.log('Global counter:', globalCounter);
+        console.log('Outer variable:', outerVariable);
+        console.log('Inner variable:', innerVariable);
+        console.log('Sum:', outerVariable + innerVariable);
+        
+        return outerVariable + innerVariable;
+    }
+    
+    return innerFunction;
+}
+
+console.log('=== Function Scope Demo ===');
+
+// Create closures
+let addFive = outerFunction(5);
+let addTen = outerFunction(10);
+
+console.log('\\nCalling addFive(3):');
+let result1 = addFive(3);
+
+console.log('\\nCalling addTen(7):');
+let result2 = addTen(7);
+
+console.log('\\nResults:', result1, 'and', result2);
+console.log('Final global counter:', globalCounter);`,
+
+                `// Utility Functions Library
+// Math utilities
+const mathUtils = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    divide: (a, b) => b !== 0 ? a / b : 'Error: Division by zero',
+    power: (base, exponent) => Math.pow(base, exponent),
+    average: (...numbers) => {
+        let sum = numbers.reduce((acc, num) => acc + num, 0);
+        return sum / numbers.length;
+    }
+};
+
+// String utilities
+function capitalizeWords(sentence) {
+    return sentence.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+}
+
+function reverseString(str) {
+    return str.split('').reverse().join('');
+}
+
+// Array utilities
+const findMax = (numbers) => Math.max(...numbers);
+const findMin = (numbers) => Math.min(...numbers);
+
+// Test the utility functions
+console.log('=== Math Utils ===');
+console.log('Add:', mathUtils.add(15, 25));
+console.log('Multiply:', mathUtils.multiply(7, 8));
+console.log('Power:', mathUtils.power(2, 3));
+console.log('Average:', mathUtils.average(10, 20, 30, 40));
+
+console.log('\\n=== String Utils ===');
+console.log('Capitalize:', capitalizeWords('hello world from javascript'));
+console.log('Reverse:', reverseString('Hello World'));
+
+console.log('\\n=== Array Utils ===');
+let numbers = [45, 12, 78, 23, 67, 34];
+console.log('Numbers:', numbers);
+console.log('Max:', findMax(numbers));
+console.log('Min:', findMin(numbers));`
+            ];
+            
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            document.getElementById('codeInput').value = randomExample;
+        }
+        
+        // Load default example on page load
+        window.onload = function() {
+            // The textarea already has default content
+        };
+    </script>
+</body>
+</html>
