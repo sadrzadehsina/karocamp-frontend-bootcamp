@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova - Innovative Web Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            scroll-behavior: smooth;
+        }
+
+        /* CSS Custom Properties */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --background-color: #ecf0f1;
+            --white: #ffffff;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-xxl: 4rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+            color: #555;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary-color);
+        }
+
+        .contact-btn {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            background: linear-gradient(135deg, var(--background-color), var(--white));
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .cta-button {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: var(--spacing-sm) var(--spacing-xl);
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: var(--spacing-xxl) 0;
+        }
+
+        .section:nth-child(even) {
+            background: var(--background-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* About Section */
+        .about-content {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            justify-content: space-around;
+        }
+
+        .team-member {
+            flex: 1 1 250px;
+            text-align: center;
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--background-color);
+            margin: 0 auto var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .service-card {
+            flex: 1 1 300px;
+            max-width: 350px;
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        /* Pricing Table */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-xl) 0;
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: var(--spacing-sm);
+            text-align: center;
+            border-bottom: 1px solid var(--background-color);
+        }
+
+        .pricing-table th {
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: var(--background-color);
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            justify-content: center;
+        }
+
+        .project-card {
+            flex: 1 1 350px;
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--background-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+
+        .project-content {
+            padding: var(--spacing-lg);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+
+        .tech-tag {
+            background: var(--background-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: flex-start;
+        }
+
+        .contact-form {
+            flex: 2;
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: var(--spacing-xs);
+            border: 2px solid var(--background-color);
+            border-radius: 5px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-lg);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            padding: var(--spacing-xs) var(--spacing-lg);
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .contact-details {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .contact-item strong {
+            color: var(--primary-color);
+        }
+
+        .contact-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: var(--spacing-xl) 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: var(--spacing-xs);
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Lists Styling */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: var(--spacing-lg);
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .process-list {
+            counter-reset: step-counter;
+        }
+
+        .process-list li {
+            counter-increment: step-counter;
+            margin-bottom: var(--spacing-sm);
+            padding-left: var(--spacing-xl);
+            position: relative;
+        }
+
+        .process-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary-color);
+            color: var(--white);
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .definition-list dt {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: var(--spacing-sm);
+        }
+
+        .definition-list dd {
+            margin-left: var(--spacing-lg);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav id="navbar">
+        <a href="#home" class="logo">TechNova</a>
+        <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="contact-btn">Get Started</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>TechNova</h1>
+            <p class="hero-subtitle">Building Tomorrow's Web Today</p>
+            <p class="hero-description">We create <strong>innovative web solutions</strong> that help businesses thrive in the digital world. From custom websites to mobile applications, we bring your ideas to life with cutting-edge technology.</p>
+            <a href="#contact" class="cta-button">Start Your Project</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About TechNova</h2>
+            <div class="about-content">
+                <p>Founded in 2020, <strong>TechNova</strong> has been at the forefront of web development innovation. Our mission is to empower businesses with modern, scalable, and user-friendly digital solutions.</p>
+                <p>We believe in the power of technology to transform ideas into reality. Our team combines <em>creativity</em>, <em>technical expertise</em>, and <em>industry best practices</em> to deliver exceptional results for our clients.</p>
+                
+                <h3>Our Values</h3>
+                <ul class="feature-list">
+                    <li>Innovation-driven development</li>
+                    <li>Client-focused solutions</li>
+                    <li>Quality and reliability</li>
+                    <li>Continuous learning and improvement</li>
+                    <li>Collaborative teamwork</li>
+                </ul>
+            </div>
+
+            <h3>Meet Our Team</h3>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo">👩‍💼</div>
+                    <h4>Sarah Johnson</h4>
+                    <p><strong>CEO & Lead Developer</strong></p>
+                    <p>5+ years experience in <em>full-stack development</em> and team leadership.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">👨‍💻</div>
+                    <h4>Mike Chen</h4>
+                    <p><strong>Full-Stack Developer</strong></p>
+                    <p>Expert in <em>React, Node.js</em>, and modern web technologies.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">👩‍🎨</div>
+                    <h4>Emma Rodriguez</h4>
+                    <p><strong>UI/UX Designer</strong></p>
+                    <p>Passionate about creating <em>beautiful</em> and <em>intuitive</em> user experiences.</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">👨‍📈</div>
+                    <h4>Alex Thompson</h4>
+                    <p><strong>Digital Marketing Specialist</strong></p>
+                    <p>Focused on <em>SEO optimization</em> and digital growth strategies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Web Development</h3>
+                    <p>Custom websites and web applications built with modern frameworks and best practices.</p>
+                    <ul class="feature-list">
+                        <li>Responsive design</li>
+                        <li>Performance optimization</li>
+                        <li>SEO-friendly structure</li>
+                        <li>Cross-browser compatibility</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Mobile Apps</h3>
+                    <p>iOS and Android applications that provide seamless user experiences across all devices.</p>
+                    <ul class="feature-list">
+                        <li>Native iOS development</li>
+                        <li>Android applications</li>
+                        <li>Cross-platform solutions</li>
+                        <li>App Store optimization</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛒</div>
+                    <h3>E-commerce</h3>
+                    <p>Complete online store solutions with secure payment processing and inventory management.</p>
+                    <ul class="feature-list">
+                        <li>Shopping cart functionality</li>
+                        <li>Payment gateway integration</li>
+                        <li>Inventory management</li>
+                        <li>Order tracking system</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Digital Marketing</h3>
+                    <p>Comprehensive digital marketing strategies to boost your online presence and drive growth.</p>
+                    <ul class="feature-list">
+                        <li>Search engine optimization</li>
+                        <li>Social media marketing</li>
+                        <li>Content marketing</li>
+                        <li>Analytics and reporting</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Our Development Process</h3>
+            <ol class="process-list">
+                <li><strong>Discovery Phase:</strong> Understanding your business needs and project requirements</li>
+                <li><strong>Planning & Design:</strong> Creating wireframes, mockups, and technical specifications</li>
+                <li><strong>Development:</strong> Building your solution using modern technologies and best practices</li>
+                <li><strong>Testing & Quality Assurance:</strong> Thorough testing to ensure optimal performance</li>
+                <li><strong>Launch & Deployment:</strong> Going live with your new digital solution</li>
+                <li><strong>Ongoing Support:</strong> Maintenance, updates, and continuous improvement</li>
+            </ol>
+
+            <h3>Service Packages</h3>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Basic</th>
+                        <th>Professional</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Price</strong></td>
+                        <td>$2,500</td>
+                        <td>$5,000</td>
+                        <td>$10,000+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pages</strong></td>
+                        <td>5 pages</td>
+                        <td>15 pages</td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Design</strong></td>
+                        <td>Template-based</td>
+                        <td>Custom design</td>
+                        <td>Premium custom</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Features</strong></td>
+                        <td>Basic functionality</td>
+                        <td>Advanced features</td>
+                        <td>Full customization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timeline</strong></td>
+                        <td>2-3 weeks</td>
+                        <td>4-6 weeks</td>
+                        <td>8-12 weeks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Technology Glossary</h3>
+            <dl class="definition-list">
+                <dt>React</dt>
+                <dd>A JavaScript library for building user interfaces, developed by Facebook</dd>
+                
+                <dt>Node.js</dt>
+                <dd>A JavaScript runtime environment that allows running JavaScript on the server</dd>
+                
+                <dt>MongoDB</dt>
+                <dd>A NoSQL database that stores data in flexible, JSON-like documents</dd>
+                
+                <dt>API</dt>
+                <dd>Application Programming Interface - a set of protocols for building software applications</dd>
+                
+                <dt>SEO</dt>
+                <dd>Search Engine Optimization - the practice of increasing website visibility in search engines</dd>
+            </dl>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Portfolio</h2>
+            
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <div class="project-image">🌱</div>
+                    <div class="project-content">
+                        <h3>EcoShop</h3>
+                        <p>A sustainable products e-commerce platform that connects eco-conscious consumers with environmentally friendly brands.</p>
+                        <p><strong>Features:</strong></p>
+                        <ul class="feature-list">
+                            <li>Product sustainability ratings</li>
+                            <li>Carbon footprint calculator</li>
+                            <li>Eco-friendly packaging options</li>
+                            <li>Community reviews and ratings</li>
+                        </ul>
+                        <div class="tech-list">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Stripe</span>
+                        </div>
+                        <p><a href="https://example.com/ecoshop" target="_blank">View Live Project →</a></p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">💪</div>
+                    <div class="project-content">
+                        <h3>FitTracker</h3>
+                        <p>A comprehensive fitness tracking mobile application that helps users monitor their workouts, nutrition, and health goals.</p>
+                        <p><strong>Features:</strong></p>
+                        <ul class="feature-list">
+                            <li>Workout tracking and planning</li>
+                            <li>Nutrition logging</li>
+                            <li>Progress analytics</li>
+                            <li>Social challenges</li>
+                        </ul>
+                        <div class="tech-list">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Chart.js</span>
+                            <span class="tech-tag">Redux</span>
+                        </div>
+                        <p><a href="https://example.com/fittracker" target="_blank">View on App Store →</a></p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">🍽️</div>
+                    <div class="project-content">
+                        <h3>LocalBites</h3>
+                        <p>A restaurant discovery and food delivery platform that connects local restaurants with food enthusiasts in their community.</p>
+                        <p><strong>Features:</strong></p>
+                        <ul class="feature-list">
+                            <li>Restaurant discovery</li>
+                            <li>Real-time order tracking</li>
+                            <li>User reviews and ratings</li>
+                            <li>Loyalty program integration</li>
+                        </ul>
+                        <div class="tech-list">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Express.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Google Maps API</span>
+                        </div>
+                        <p><a href="https://example.com/localbites" target="_blank">View Live Project →</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3>Start Your Project Today</h3>
+                    <p>Ready to bring your idea to life? Fill out the form below and we'll get back to you within 24 hours.</p>
+                    
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" placeholder="Your company name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceType">Service Type</label>
+                            <select id="serviceType" name="serviceType">
+                                <option value="">Select a service</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="mobile-apps">Mobile Apps</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="digital-marketing">Digital Marketing</option>
+                                <option value="consultation">Consultation</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Project Budget Range</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="budget1" name="budget" value="under-5k">
+                                    <label for="budget1">Under $5,000</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="budget2" name="budget" value="5k-10k">
+                                    <label for="budget2">$5,000 - $10,000</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="budget3" name="budget" value="10k-25k">
+                                    <label for="budget3">$10,000 - $25,000</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="budget4" name="budget" value="over-25k">
+                                    <label for="budget4">Over $25,000</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Project Description *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project, goals, and any specific requirements..."></textarea>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">Subscribe to our newsletter for web development tips and industry insights</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a> *</label>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Send Message</button>
+                            <button type="reset" class="btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-details">
+                        <h3>Contact Information</h3>
+                        
+                        <div class="contact-item">
+                            <strong>Email:</strong><br>
+                            <a href="mailto:hello@technova.com">hello@technova.com</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Phone:</strong><br>
+                            <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Office:</strong><br>
+                            123 Innovation Drive<br>
+                            Tech Valley, CA 94025<br>
+                            United States
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Business Hours:</strong><br>
+                            Monday - Friday: 9:00 AM - 6:00 PM PST<br>
+                            Saturday: 10:00 AM - 4:00 PM PST<br>
+                            <em>Closed Sundays</em>
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Response Time:</strong><br>
+                            We typically respond to all inquiries within <strong>24 hours</strong> during business days.
+                        </div>
+
+                        <div class="contact-item">
+                            <strong>Emergency Support:</strong><br>
+                            For existing clients with urgent issues:<br>
+                            <a href="tel:+15559876543">+1 (555) 987-6543</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h4>TechNova</h4>
+                    <p>Building tomorrow's web today. Innovative solutions for modern businesses.</p>
+                    <p>&copy; 2024 TechNova. All rights reserved.</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://facebook.com/technova" target="_blank">Facebook</a>
+                    <a href="https://twitter.com/technova" target="_blank">Twitter</a>
+                    <a href="https://linkedin.com/company/technova" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/technova" target="_blank">GitHub</a>
+                    <a href="https://instagram.com/technova" target="_blank">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
