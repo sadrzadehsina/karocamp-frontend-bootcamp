@@ -1,3 +1,5 @@
+# JavaScript Learning Roadmap (Beginner to Advanced Core)
+
 ## 🟡 Stage 2: Variables, Data Types, and Operators
 
 ### 📌 Goal: Stage 2
