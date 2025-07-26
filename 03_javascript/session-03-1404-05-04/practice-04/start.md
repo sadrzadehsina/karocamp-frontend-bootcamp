@@ -1,204 +1,402 @@
 <!-- markdownlint-disable -->
 
-# Practice 04: Build a Multiplication Table Generator
+# Practice 06: Build a Dynamic User Greeting System
 
 ## 🎯 Learning Objectives
 
 By completing this exercise, you will learn:
 
-- Using `for` loops with multiple levels (nested loops)
-- Working with `while` and `do...while` loops
-- Implementing loop control with `break` and `continue`
-- Looping through arrays and processing data
-- Creating formatted output with loops
-- Understanding loop performance and optimization
+- Creating functions with different parameter patterns
+- Understanding function scope and variable accessibility
+- Working with default parameters and rest parameters
+- Using template literals within functions
+- Creating utility functions for common tasks
+- Implementing function overloading patterns
+- Building interactive user experiences with functions
 
 ## 📋 Exercise Description
 
-Create a multiplication table generator that can display tables for single numbers or ranges of numbers. This exercise will help you master different types of loops and array iteration from Stage 3.
+Create a comprehensive user greeting system that can handle different types of user information and generate personalized greetings. This exercise will reinforce function concepts from Stage 4 while building practical, reusable components.
 
 ## 🔧 Requirements
 
 ### Basic Requirements:
-1. Generate a multiplication table for a single number (e.g., 5 × 1 = 5, 5 × 2 = 10, etc.)
-2. Use a `for` loop to create the basic table
-3. Use a `while` loop to create an alternative version
-4. Display results in a formatted way
-5. Create tables for multiple numbers using nested loops
+1. Create a basic `greetUser(name)` function
+2. Build an advanced greeting function with multiple parameters
+3. Implement functions with default parameters
+4. Create arrow functions for simple greeting utilities
+5. Use template literals for dynamic message generation
+6. Demonstrate function scope with greeting preferences
 
 ### Advanced Requirements:
-1. Allow custom ranges for both the number and multiplier
-2. Use `continue` to skip certain multiples (e.g., skip even numbers)
-3. Use `break` to limit table size dynamically
-4. Loop through an array of numbers to generate multiple tables
-5. Add input validation and error handling
+1. Create functions that accept objects as parameters
+2. Implement greeting functions for different times of day
+3. Build a greeting history system
+4. Create personalized greeting based on user preferences
+5. Add multilingual greeting support
+6. Implement greeting validation and error handling
 
 ## 💻 Example Code Structure
 
 ```javascript
-// Step 1: Single number multiplication table using for loop
-function generateTableFor(number, maxMultiplier = 10) {
-    console.log(`\n📊 Multiplication Table for ${number}:`);
-    console.log("=".repeat(25));
-    
-    for (let i = 1; i <= maxMultiplier; i++) {
-        // Your multiplication logic here
-        let result = number * i;
-        console.log(`${number} × ${i} = ${result}`);
+// Global greeting preferences (demonstrate global scope)
+const GREETING_PREFERENCES = {
+    formal: "Good [timeOfDay], [title] [name]. Welcome to our system.",
+    casual: "Hey [name]! How's it going?",
+    business: "Hello [name], thank you for joining us today.",
+    friendly: "Hi there, [name]! Great to see you! 😊"
+};
+
+let greetingHistory = [];
+
+// Step 1: Basic greeting function (declaration)
+function greetUser(name) {
+    if (!name || name.trim() === '') {
+        return "Hello there! Welcome!";
     }
+    return `Hello, ${name}! Welcome!`;
 }
 
-// Step 2: Same table using while loop
-function generateTableWhile(number, maxMultiplier = 10) {
-    console.log(`\n📊 Multiplication Table for ${number} (While Loop):`);
-    console.log("=".repeat(35));
+// Step 2: Advanced greeting with multiple parameters
+function greetUserAdvanced(name, timeOfDay = "day", style = "casual") {
+    // Local scope variables
+    const timestamp = new Date().toLocaleString();
+    let greeting;
     
-    let i = 1;
-    while (i <= maxMultiplier) {
-        // Your logic here
-        i++;
+    // Your greeting logic here
+    switch (style) {
+        case 'formal':
+            greeting = `Good ${timeOfDay}, ${name}. It is a pleasure to meet you.`;
+            break;
+        case 'casual':
+            greeting = `Hey ${name}! Hope you're having a great ${timeOfDay}!`;
+            break;
+        case 'business':
+            greeting = `Hello ${name}, welcome to our business platform.`;
+            break;
+        default:
+            greeting = greetUser(name);
     }
+    
+    // Store in history (demonstrate scope access)
+    greetingHistory.push({
+        name: name,
+        greeting: greeting,
+        timestamp: timestamp,
+        style: style
+    });
+    
+    return greeting;
 }
 
-// Step 3: Multiple tables using nested loops
-function generateMultipleTables(numbers, maxMultiplier = 10) {
-    console.log("\n📚 Multiple Multiplication Tables:");
-    console.log("=".repeat(40));
+// Step 3: Arrow functions for utilities
+const getCurrentTimeOfDay = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "morning";
+    if (hour < 17) return "afternoon";
+    if (hour < 21) return "evening";
+    return "night";
+};
+
+const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
+// Step 4: Function with object parameter
+const greetUserWithProfile = (userProfile) => {
+    const { 
+        firstName, 
+        lastName = '', 
+        title = '', 
+        preferredName = firstName,
+        language = 'english',
+        greetingStyle = 'casual' 
+    } = userProfile;
     
-    // Your nested loop logic here
-    for (let num of numbers) {
-        // Generate table for each number
-    }
+    const timeOfDay = getCurrentTimeOfDay();
+    const displayName = preferredName || firstName;
+    const fullName = title ? `${title} ${firstName} ${lastName}`.trim() : `${firstName} ${lastName}`.trim();
+    
+    // Your personalized greeting logic here
+    return greetUserAdvanced(displayName, timeOfDay, greetingStyle);
+};
+
+// Step 5: Function with rest parameters
+function greetMultipleUsers(...users) {
+    const greetings = [];
+    
+    users.forEach(user => {
+        if (typeof user === 'string') {
+            greetings.push(greetUser(user));
+        } else if (typeof user === 'object') {
+            greetings.push(greetUserWithProfile(user));
+        }
+    });
+    
+    return greetings;
 }
 
-// Step 4: Test your functions
-const testNumber = 7;
-const testNumbers = [2, 5, 9, 12];
+// Test your functions
+console.log("Testing User Greeting System:");
+console.log("============================");
 
-generateTableFor(testNumber);
-generateTableWhile(testNumber);
-generateMultipleTables(testNumbers);
+// Your test calls here
+const testUser1 = "John";
+const testUser2 = {
+    firstName: "Sarah",
+    lastName: "Johnson",
+    title: "Dr.",
+    preferredName: "Sarah",
+    greetingStyle: "formal"
+};
+
+console.log(greetUser(testUser1));
+console.log(greetUserAdvanced("Alice", "morning", "formal"));
+console.log(greetUserWithProfile(testUser2));
 ```
 
 ## ✅ Expected Output
 
 ```
-📊 Multiplication Table for 7:
-=========================
-7 × 1 = 7
-7 × 2 = 14
-7 × 3 = 21
-7 × 4 = 28
-7 × 5 = 35
-7 × 6 = 42
-7 × 7 = 49
-7 × 8 = 56
-7 × 9 = 63
-7 × 10 = 70
+Testing User Greeting System:
+============================
 
-📚 Multiple Multiplication Tables:
-========================================
+Basic Greeting: Hello, John! Welcome!
 
-Table for 2:
-2 × 1 = 2
-2 × 2 = 4
-2 × 3 = 6
-...
+Advanced Greeting: Good morning, Alice. It is a pleasure to meet you.
 
-Table for 5:
-5 × 1 = 5
-5 × 2 = 10
-5 × 3 = 15
-...
+Profile Greeting: Good afternoon, Dr. Sarah Johnson. It is a pleasure to meet you.
+
+Multiple Users:
+- Hello, Mike! Welcome!
+- Good afternoon, Emma. It is a pleasure to meet you.
+
+Utility Functions:
+- Current time: afternoon
+- Capitalized: John Smith
+- Greeting history: 3 entries
+
+Scope Demonstration:
+- Global preferences loaded: 4 styles
+- Local timestamp generated: 2024-01-15 14:30:22
+- History accessible: true
 ```
 
 ## 🎯 Challenge Tasks
 
-1. **Conditional Tables**: Use `continue` to create tables that skip multiples of 3
-2. **Limited Tables**: Use `break` to stop when result exceeds 50
-3. **Formatted Grid**: Create a grid-style multiplication table (like traditional times tables)
-4. **Interactive Range**: Allow dynamic start and end points for both number and multiplier ranges
-5. **Performance Comparison**: Compare execution time between different loop types
+1. **Multilingual Support**: Add greeting functions for different languages
+2. **Time-Sensitive Greetings**: Create greetings that change based on holidays or special dates
+3. **Greeting Analytics**: Build functions to analyze greeting patterns
+4. **Custom Greeting Builder**: Create a function that builds custom greeting templates
+5. **Voice-Style Greetings**: Implement different personality styles (cheerful, professional, etc.)
 
 ## 📝 Advanced Implementation Ideas
 
 ```javascript
-// Grid-style multiplication table
-function generateGrid(maxNumber = 10) {
-    console.log("\n🔢 Multiplication Grid:");
-    
-    // Header row
-    process.stdout.write("   ");
-    for (let i = 1; i <= maxNumber; i++) {
-        process.stdout.write(`${i.toString().padStart(4)}`);
+// Multilingual greeting system
+const MULTILINGUAL_GREETINGS = {
+    english: {
+        morning: "Good morning",
+        afternoon: "Good afternoon", 
+        evening: "Good evening",
+        casual: "Hey there"
+    },
+    spanish: {
+        morning: "Buenos días",
+        afternoon: "Buenas tardes",
+        evening: "Buenas noches", 
+        casual: "¡Hola"
+    },
+    french: {
+        morning: "Bonjour",
+        afternoon: "Bon après-midi",
+        evening: "Bonsoir",
+        casual: "Salut"
     }
-    console.log();
+};
+
+function greetInLanguage(name, language = 'english', timeOfDay = getCurrentTimeOfDay()) {
+    const greetings = MULTILINGUAL_GREETINGS[language] || MULTILINGUAL_GREETINGS.english;
+    const greeting = greetings[timeOfDay] || greetings.casual;
+    return `${greeting}, ${name}!`;
+}
+
+// Greeting with mood/personality
+const PERSONALITY_STYLES = {
+    enthusiastic: (name) => `WOW! ${name}! SO EXCITED to see you! 🎉`,
+    zen: (name) => `Welcome, ${name}. May your day be peaceful. 🧘`,
+    professional: (name) => `Good day, ${name}. I trust you are well.`,
+    friendly: (name) => `Hi ${name}! Hope you're doing awesome today! 😊`,
+    mysterious: (name) => `Ah, ${name}... we meet again... 🕵️`
+};
+
+function greetWithPersonality(name, personality = 'friendly') {
+    const greetingFunction = PERSONALITY_STYLES[personality] || PERSONALITY_STYLES.friendly;
+    return greetingFunction(name);
+}
+
+// Dynamic greeting based on user activity
+function greetReturningUser(userProfile) {
+    const { name, lastVisit, visitCount, favoriteFeature } = userProfile;
+    const daysSinceLastVisit = Math.floor((Date.now() - new Date(lastVisit)) / (1000 * 60 * 60 * 24));
     
-    // Nested loops for grid
-    for (let row = 1; row <= maxNumber; row++) {
-        process.stdout.write(`${row.toString().padStart(2)} |`);
-        for (let col = 1; col <= maxNumber; col++) {
-            process.stdout.write(`${(row * col).toString().padStart(4)}`);
-        }
-        console.log();
+    if (visitCount === 1) {
+        return `Welcome back, ${name}! Great to see you again!`;
+    } else if (daysSinceLastVisit > 30) {
+        return `${name}! It's been a while! Welcome back! We've missed you! 🎊`;
+    } else if (daysSinceLastVisit > 7) {
+        return `Hey ${name}! Welcome back! How have you been?`;
+    } else {
+        return `${name}! Good to see you again today!`;
     }
 }
 
-// Skip certain conditions with continue
-function generateSelectiveTable(number, maxMultiplier = 20) {
-    console.log(`\n🎯 Selective Table for ${number} (skipping multiples of 3):`);
+// Function composition for complex greetings
+function createCustomGreeting(name, options = {}) {
+    const {
+        includeTime = true,
+        includeWeather = false,
+        personality = 'friendly',
+        language = 'english',
+        includeEmoji = true
+    } = options;
     
-    for (let i = 1; i <= maxMultiplier; i++) {
-        if (i % 3 === 0) {
-            continue; // Skip multiples of 3
-        }
-        console.log(`${number} × ${i} = ${number * i}`);
+    let parts = [];
+    
+    // Build greeting parts
+    if (includeTime) {
+        parts.push(greetInLanguage(name, language, getCurrentTimeOfDay()));
+    } else {
+        parts.push(greetInLanguage(name, language, 'casual'));
     }
+    
+    if (includeWeather) {
+        parts.push("Hope the weather is treating you well!");
+    }
+    
+    // Apply personality
+    if (personality !== 'standard') {
+        return greetWithPersonality(name, personality);
+    }
+    
+    let greeting = parts.join(' ');
+    
+    if (includeEmoji) {
+        greeting += ' 😊';
+    }
+    
+    return greeting;
 }
 
-// Limited table with break
-function generateLimitedTable(number, limit = 100) {
-    console.log(`\n⚡ Limited Table for ${number} (stop when result > ${limit}):`);
-    
-    for (let i = 1; i <= 20; i++) {
-        let result = number * i;
-        if (result > limit) {
-            console.log(`Stopping: ${number} × ${i} would be ${result} (> ${limit})`);
-            break;
-        }
-        console.log(`${number} × ${i} = ${result}`);
+// Validation function
+function validateUserName(name) {
+    if (!name) {
+        throw new Error('Name is required');
+    }
+    if (typeof name !== 'string') {
+        throw new Error('Name must be a string');
+    }
+    if (name.trim().length === 0) {
+        throw new Error('Name cannot be empty');
+    }
+    if (name.length > 50) {
+        throw new Error('Name is too long');
+    }
+    return name.trim();
+}
+
+// Safe greeting function with error handling
+function safeGreetUser(name, options = {}) {
+    try {
+        const validName = validateUserName(name);
+        return createCustomGreeting(validName, options);
+    } catch (error) {
+        console.warn('Greeting error:', error.message);
+        return "Hello there! Welcome!";
     }
 }
 ```
 
 ## 🔍 Key Concepts to Practice
 
-- For loops with initialization, condition, and increment
-- While loops with manual counter management
-- Do-while loops for at least one execution
-- Nested loops for multi-dimensional data
-- Array iteration with for...of and traditional for loops
-- Loop control statements (break, continue)
-- String formatting and output formatting
+- Function parameters and default values
+- Template literals for dynamic strings
+- Function scope and closure
+- Arrow functions vs regular functions
+- Object destructuring in parameters
+- Rest parameters (...args)
+- Function composition
+- Error handling in functions
+- Higher-order functions
 
 ## 💡 Tips
 
-- Use `padStart()` or `padEnd()` for aligned output formatting
-- Remember that nested loops can have performance implications with large datasets
-- `break` only exits the innermost loop in nested structures
-- Use meaningful variable names like `multiplier` instead of just `i` in complex loops
-- Consider using `for...of` for iterating arrays when you don't need the index
-- Test edge cases like 0, negative numbers, and large numbers
+- Use descriptive parameter names that explain what the function expects
+- Provide sensible default values for optional parameters
+- Consider using object parameters for functions with many options
+- Template literals make string interpolation much cleaner than concatenation
+- Remember that arrow functions don't have their own `this` binding
+- Use rest parameters when you don't know how many arguments will be passed
+- Always validate inputs, especially when functions will be used by others
+- Consider returning objects when you need to return multiple related values
 
-## 🧪 Test Cases
+## 🧪 Test Scenarios
 
 ```javascript
-// Test various scenarios
-const testCases = [
-    { number: 0, expected: "All results should be 0" },
-    { number: 1, expected: "Results should equal the multiplier" },
-    { number: -3, expected: "Results should be negative" },
-    { numbers: [], expected: "Should handle empty array gracefully" },
-    { numbers: [1, 2, 3], maxMultiplier: 3, expected: "Limited range test" }
+// Comprehensive test suite
+const testScenarios = [
+    {
+        description: "Basic greeting with valid name",
+        test: () => greetUser("Alice"),
+        expected: "Hello, Alice! Welcome!"
+    },
+    {
+        description: "Greeting with empty name",
+        test: () => greetUser(""),
+        expected: "Hello there! Welcome!"
+    },
+    {
+        description: "Advanced greeting with all parameters",
+        test: () => greetUserAdvanced("Bob", "morning", "formal"),
+        expected: /Good morning.*Bob/
+    },
+    {
+        description: "Profile greeting with title",
+        test: () => greetUserWithProfile({
+            firstName: "Jane",
+            lastName: "Doe", 
+            title: "Dr.",
+            greetingStyle: "formal"
+        }),
+        expected: /Dr.*Jane/
+    },
+    {
+        description: "Multiple users greeting",
+        test: () => greetMultipleUsers("Alice", "Bob", "Charlie"),
+        expected: Array
+    }
 ];
+
+function runGreetingTests() {
+    console.log("\n🧪 Running Greeting Tests:");
+    console.log("=========================");
+    
+    testScenarios.forEach((scenario, index) => {
+        console.log(`\nTest ${index + 1}: ${scenario.description}`);
+        try {
+            const result = scenario.test();
+            console.log(`Result: ${result}`);
+            
+            if (scenario.expected instanceof RegExp) {
+                console.log(`Passed: ${scenario.expected.test(result)}`);
+            } else if (scenario.expected === Array) {
+                console.log(`Passed: ${Array.isArray(result)}`);
+            } else {
+                console.log(`Passed: ${result === scenario.expected}`);
+            }
+        } catch (error) {
+            console.log(`Error: ${error.message}`);
+        }
+    });
+}
 ```
