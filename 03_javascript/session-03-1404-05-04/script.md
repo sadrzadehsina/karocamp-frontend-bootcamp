@@ -1,73 +1,44 @@
-
 # JavaScript Learning Roadmap (Beginner to Advanced Core)
 
-## 🔵 Stage 5: Arrays and Objects
+## 🟠 Stage 3: Control Flow (Conditions and Loops)
 
-### 📌 Goal: Stage 5
+### 📌 Goal: Stage 3
 
-Work with collections of data.
+Make your code smart and repeatable.
 
-### 💡 Topics: Stage 5
+### 💡 Topics: Stage 3
 
-- **Arrays:**
-  - Create arrays: `[]`
-  - Access and modify elements
-  - Common methods:
-    - `.push()`, `.pop()`, `.shift()`, `.unshift()`
-    - `.slice()`, `.splice()`
-    - `.includes()`, `.indexOf()`
-    - `.forEach()`, `.map()`, `.filter()`, `.find()`, `.reduce()`
+- **if, else if, else**
+- **switch statements**
+- **Loops:**
+  - `for`, `while`, `do...while`
+  - Looping through arrays
+- **Break and continue**
 
-- **Objects:**
-  - Create objects: `{ key: value }`
-  - Access properties with dot and bracket notation
-  - Add/update/delete properties
-  - Looping with `for...in` and `Object.keys()`
+### ✅ Practice: Stage 3
 
-### ✅ Practice: Stage 5
-
-- Store a list of books in an array of objects
-- Loop through and display user profile data
+- Build a number guessing game
+- Create a loop that prints a multiplication table
 
 ---
 
-## 🟤 Stage 6: DOM Manipulation
+## 🟣 Stage 4: Functions
 
-### 📌 Goal: Stage 6
+### 📌 Goal: Stage 4
 
-Connect JavaScript with HTML pages.
+Organize and reuse code.
 
-### 💡 Topics: Stage 6
+### 💡 Topics: Stage 4
 
-- **What is the DOM?**
-- **Selecting elements:** `document.getElementById()`, `querySelector()`, `querySelectorAll()`
-- **Changing content:** `.innerHTML`, `.textContent`
-- **Changing styles:** `.style`
-- **Creating/removing elements:** `createElement()`, `append()`, `remove()`
+- **Function declaration vs expression**
+- **Parameters and arguments**
+- **Return values**
+- **Scope (local vs global)**
+- **Arrow functions:** `() => {}`
 
-### ✅ Practice: Stage 6
+### ✅ Practice: Stage 4
 
-- Build a button that changes text on click
-- Make a to-do list with add/delete features
-
----
-
-## 🟢 Stage 7: Events and Interaction
-
-### 📌 Goal: Stage 7
-
-Respond to user actions.
-
-### 💡 Topics: Stage 7
-
-- **Event handlers:** `onclick`, `onchange`, `oninput`
-- **addEventListener()**
-- **Event object and** `e.target`
-- **Form submission and prevent default** `e.preventDefault()`
-
-### ✅ Practice: Stage 7
-
-- Create a login form with validation
-- Add event listeners to multiple buttons (e.g., calculator keys)
+- Create a reusable function for tax or discount calculator
+- Write a `greetUser(name)` function
 
 ---

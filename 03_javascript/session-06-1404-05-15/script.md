@@ -1,19 +1,22 @@
-
 # JavaScript Learning Roadmap (Beginner to Advanced Core)
 
-## 🟤 Stage 11: Storage and State
+## 🟣 Stage 10: Fetch API and JSON
 
-### 📌 Goal: Stage 11
+### 📌 Goal: Stage 10
 
-Save user data in the browser.
+Load data from external sources.
 
-### 💡 Topics: Stage 11
+### 💡 Topics: Stage 10
 
-- **localStorage, sessionStorage**
-- **setItem, getItem, removeItem**
-- **Simple state tracking in vanilla JS**
+- **What is JSON?** `JSON.stringify()` / `JSON.parse()`
+- **Using** `fetch()` **to get data from APIs**
+- **Promises and** `.then()`, `.catch()`
+- **HTTP methods:** GET, POST (brief overview)
+- **Displaying fetched data in the DOM**
 
-### ✅ Practice: Stage 11
+### ✅ Practice: Stage 10
 
-- Build a theme switcher (light/dark) using localStorage
-- Save form data persistently between reloads
+- Load and display user data from [JSONPlaceholder](https://jsonplaceholder.typicode.com)
+- Create a search form that fetches API results
+
+---

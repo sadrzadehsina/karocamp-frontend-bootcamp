@@ -1,22 +1,46 @@
+
 # JavaScript Learning Roadmap (Beginner to Advanced Core)
 
-## 🟣 Stage 10: Fetch API and JSON
+## 🟡 Stage 8: Error Handling and Debugging
 
-### 📌 Goal: Stage 10
+### 📌 Goal: Stage 8
 
-Load data from external sources.
+Handle errors gracefully and debug effectively.
 
-### 💡 Topics: Stage 10
+### 💡 Topics: Stage 8
 
-- **What is JSON?** `JSON.stringify()` / `JSON.parse()`
-- **Using** `fetch()` **to get data from APIs**
-- **Promises and** `.then()`, `.catch()`
-- **HTTP methods:** GET, POST (brief overview)
-- **Displaying fetched data in the DOM**
+- **try, catch, finally**
+- **Throwing custom errors**
+- **Console methods:** `console.log`, `warn`, `error`, `table`
+- **Common JS errors:** undefined, null, type errors
 
-### ✅ Practice: Stage 10
+### ✅ Practice: Stage 8
 
-- Load and display user data from [JSONPlaceholder](https://jsonplaceholder.typicode.com)
-- Create a search form that fetches API results
+Build a mini app that validates form input and handles errors.
 
 ---
+
+## 🟠 Stage 9: ES6+ Modern JavaScript
+
+### 📌 Goal: Stage 9
+
+Use modern, clean syntax and tools.
+
+### 💡 Topics: Stage 9
+
+- **let, const, block scope**
+- **Template literals:** `Hello, ${name}`
+- **Arrow functions**
+- **Destructuring:** `const {name} = obj`
+- **Spread and rest operators**
+- **Default parameters**
+- **Short-circuiting and optional chaining** `(?.)`
+- **Array.map(), filter(), reduce()** revisited with real use cases
+
+### ✅ Practice: Stage 9
+
+- Refactor older code with modern syntax
+- Use destructuring to extract data from an object
+
+---
+
