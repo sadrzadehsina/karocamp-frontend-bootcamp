@@ -26,20 +26,20 @@ Work with collections of data.
   
 ---
 
-## 🟢 Stage 7: Events and Interaction
+## 🟢 Stage 6: Events and Interaction
 
-### 📌 Goal: Stage 7
+### 📌 Goal: Stage 6
 
 Respond to user actions.
 
-### 💡 Topics: Stage 7
+### 💡 Topics: Stage 6
 
 - **Event handlers:** `onclick`, `onchange`, `oninput`
 - **addEventListener()**
 - **Event object and** `e.target`
 - **Form submission and prevent default** `e.preventDefault()`
 
-### ✅ Practice: Stage 7
+### ✅ Practice: Stage 6
 
 - Create a login form with validation
 - Add event listeners to multiple buttons (e.g., calculator keys)
