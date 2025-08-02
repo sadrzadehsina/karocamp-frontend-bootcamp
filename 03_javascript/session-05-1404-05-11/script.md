@@ -1,32 +1,29 @@
 
 # JavaScript Learning Roadmap (Beginner to Advanced Core)
 
-### ✅ Practice: Stage 5
+## 🔵 Stage 5: Arrays and Objects
 
-- Store a list of books in an array of objects
-- Loop through and display user profile data
+### 📌 Goal: Stage 5
 
----
+Work with collections of data.
 
-## 🟤 Stage 6: DOM Manipulation
+### 💡 Topics: Stage 5
 
-### 📌 Goal: Stage 6
+- **Arrays:**
+  - Create arrays: `[]`
+  - Access and modify elements
+  - Common methods:
+    - `.push()`, `.pop()`, `.shift()`, `.unshift()`
+    - `.slice()`, `.splice()`
+    - `.includes()`, `.indexOf()`
+    - `.forEach()`, `.map()`, `.filter()`, `.find()`, `.reduce()`
 
-Connect JavaScript with HTML pages.
-
-### 💡 Topics: Stage 6
-
-- **What is the DOM?**
-- **Selecting elements:** `document.getElementById()`, `querySelector()`, `querySelectorAll()`
-- **Changing content:** `.innerHTML`, `.textContent`
-- **Changing styles:** `.style`
-- **Creating/removing elements:** `createElement()`, `append()`, `remove()`
-
-### ✅ Practice: Stage 6
-
-- Build a button that changes text on click
-- Make a to-do list with add/delete features
-
+- **Objects:**
+  - Create objects: `{ key: value }`
+  - Access properties with dot and bracket notation
+  - Add/update/delete properties
+  - Looping with `for...in` and `Object.keys()`
+  
 ---
 
 ## 🟢 Stage 7: Events and Interaction
