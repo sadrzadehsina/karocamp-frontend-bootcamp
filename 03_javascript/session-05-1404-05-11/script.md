@@ -15,75 +15,34 @@ Work with collections of data.
     - `.push()`, `.pop()`, `.shift()`, `.unshift()`
     - `.slice()`, `.splice()`
     - `.includes()`, `.indexOf()`
-    - `.forEach()`, `.map()`, `.filter()`, `.find()`, `.reduce()`
+    - `.forEach()`
 
-- **Objects:**
-  - Create objects: `{ key: value }`
-  - Access properties with dot and bracket notation
-  - Add/update/delete properties
-  - Looping with `for...in` and `Object.keys()`
-  
----
+## 🎯 Practice Challenges
 
-## 🟢 Stage 6: Events and Interaction
+### Easy Challenges
+1. **Shopping Cart** - `challenge-easy-01/`
+   - Basic array creation and manipulation
+   - Using `.push()`, `.pop()`, `.includes()`
 
-### 📌 Goal: Stage 6
+2. **To-Do List Manager** - `challenge-easy-02/`
+   - Array searching and removal with `.indexOf()` and `.splice()`
+   - Adding items with `.push()` and `.unshift()`
 
-Respond to user actions.
+3. **Student Grades** - `challenge-easy-03/`
+   - Working with numerical arrays
+   - Using `.forEach()` for iteration and `.slice()` for copying
 
-### 💡 Topics: Stage 6
+4. **Movie Collection** - `challenge-easy-04/`
+   - String array manipulation
+   - Using `.shift()`, `.unshift()`, and array searching methods
 
-- **Event handlers:** `onclick`, `onchange`, `oninput`
-- **addEventListener()**
-- **Event object and** `e.target`
-- **Form submission and prevent default** `e.preventDefault()`
+### Medium Challenges
+1. **Library Book System** - `challenge-medium-01/`
+   - Complex multi-array management
+   - Book borrowing, returning, and waiting list operations
+   - Advanced array state management
 
-### ✅ Practice: Stage 6
-
-- Create a login form with validation
-- Add event listeners to multiple buttons (e.g., calculator keys)
-
----
-
-## 🟡 Stage 7: Error Handling and Debugging
-
-### 📌 Goal: Stage 7
-
-Handle errors gracefully and debug effectively.
-
-### 💡 Topics: Stage 7
-
-- **try, catch, finally**
-- **Throwing custom errors**
-- **Console methods:** `console.log`, `warn`, `error`, `table`
-- **Common JS errors:** undefined, null, type errors
-
-### ✅ Practice: Stage 7
-
-Build a mini app that validates form input and handles errors.
-
----
-
-## 🟠 Stage 9: ES6+ Modern JavaScript
-
-### 📌 Goal: Stage 8
-
-Use modern, clean syntax and tools.
-
-### 💡 Topics: Stage 8
-
-- **let, const, block scope**
-- **Template literals:** `Hello, ${name}`
-- **Arrow functions**
-- **Destructuring:** `const {name} = obj`
-- **Spread and rest operators**
-- **Default parameters**
-- **Short-circuiting and optional chaining** `(?.)`
-- **Array.map(), filter(), reduce()** revisited with real use cases
-
-### ✅ Practice: Stage 8
-
-- Refactor older code with modern syntax
-- Use destructuring to extract data from an object
-
----
+2. **Playlist Manager** - `challenge-medium-02/`
+   - Music playlist management with multiple arrays
+   - Cross-playlist searching and song operations
+   - Analytics and playlist combination techniques

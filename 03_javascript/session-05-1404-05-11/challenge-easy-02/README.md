@@ -1,47 +1,44 @@
-# 🎯 Challenge Easy 02: Student Profile (Stage 5 - Objects)
+# 🎯 Challenge Easy 02: To-Do List Manager (Stage 5 - Arrays)
 
 ## 📝 Description
-
-Create a student profile using objects to store and display information.
+Create a simple to-do list manager using arrays to store and manipulate tasks.
 
 ## 🎯 Objectives
-
-- Practice object creation and property access
-- Use dot notation and bracket notation
-- Modify object properties
+- Practice array creation and manipulation
+- Use array methods like `.push()`, `.indexOf()`, `.splice()`
+- Work with array searching and removal
 
 ## 📋 Requirements
-
-1. Create an object called `student` with these properties:
-   - `name`: "John Doe"
-   - `age`: 20
-   - `grade`: "A"
-   - `subjects`: ["Math", "Science", "English"]
-2. Display the student's name using dot notation
-3. Display the student's age using bracket notation
-4. Add a new property `email` with value "john@example.com"
-5. Update the grade to "A+"
-6. Display all properties using `Object.keys()`
+1. Create an empty array called `todoList`
+2. Add these tasks using `.push()`: "Buy groceries", "Walk the dog", "Study JavaScript"
+3. Display all tasks with their index numbers
+4. Find the index of "Walk the dog" using `.indexOf()`
+5. Remove "Walk the dog" using `.splice()`
+6. Add a new task "Call mom" at the beginning using `.unshift()`
+7. Display the final to-do list and its length
 
 ## 💡 Example Output
-
-```javascript
-Student name: John Doe
-Student age: 20
-After adding email: john@example.com
-Updated grade: A+
-All properties: ["name", "age", "grade", "subjects", "email"]
+```
+Initial todo list: []
+After adding tasks: ["Buy groceries", "Walk the dog", "Study JavaScript"]
+Tasks with index:
+0: Buy groceries
+1: Walk the dog
+2: Study JavaScript
+Index of "Walk the dog": 1
+After removing "Walk the dog": ["Buy groceries", "Study JavaScript"]
+After adding "Call mom" at beginning: ["Call mom", "Buy groceries", "Study JavaScript"]
+Final todo list length: 3
 ```
 
 ## 🚀 Bonus
-
-- Try accessing nested array elements (subjects)
-- Add a method to the object
-- Use `for...in` loop to display all properties
+- Try removing multiple tasks at once with `.splice()`
+- Use `.slice()` to create a copy of the array
+- Add a function to mark tasks as completed
 
 ## ✅ Expected Topics Used
-
-- Object creation with `{ key: value }`
-- Dot notation and bracket notation
-- Adding and updating properties
-- `Object.keys()` method
+- Array creation and initialization
+- `.push()`, `.unshift()` methods
+- `.indexOf()` method
+- `.splice()` method for removal
+- Array length property

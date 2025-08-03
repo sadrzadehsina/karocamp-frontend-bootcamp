@@ -1,59 +1,42 @@
-# 🎯 Challenge Easy 04: Button Click Counter (Stage 7 - Events)
+# 🎯 Challenge Easy 04: Movie Collection (Stage 5 - Arrays)
 
 ## 📝 Description
-
-Create a simple click counter that responds to button clicks and displays the count.
+Create a movie collection manager using arrays to organize and search through movie titles.
 
 ## 🎯 Objectives
-
-- Practice event handling with `addEventListener()`
-- Work with DOM manipulation
-- Update content dynamically
+- Practice array manipulation with strings
+- Use array methods like `.shift()`, `.unshift()`, `.indexOf()`
+- Work with array searching and reorganization
 
 ## 📋 Requirements
-
-1. Create an HTML file with:
-   - A button with id "clickBtn" and text "Click Me!"
-   - A paragraph with id "counter" showing "Clicks: 0"
-2. In JavaScript:
-   - Get references to the button and counter elements
-   - Add an event listener to the button for "click" events
-   - Create a counter variable starting at 0
-   - When clicked, increment counter and update the display
-
-## 💡 Example HTML Structure
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Click Counter</title>
-</head>
-<body>
-    <button id="clickBtn">Click Me!</button>
-    <p id="counter">Clicks: 0</p>
-    <script src="script.js"></script>
-</body>
-</html>
-```
+1. Create an array called `movies` with these titles: ["Inception", "The Matrix", "Interstellar", "Avatar"]
+2. Remove the first movie using `.shift()` and store it in a variable
+3. Add "The Dark Knight" at the beginning using `.unshift()`
+4. Add "Titanic" at the end using `.push()`
+5. Find the position of "Interstellar" using `.indexOf()`
+6. Check if "Avatar" is in the collection using `.includes()`
+7. Display the removed movie, current collection, and collection size
 
 ## 💡 Example Output
-
 ```
-Initial: "Clicks: 0"
-After 1 click: "Clicks: 1"
-After 3 clicks: "Clicks: 3"
+Initial movies: ["Inception", "The Matrix", "Interstellar", "Avatar"]
+Removed movie: "Inception"
+After adding "The Dark Knight" at beginning: ["The Dark Knight", "The Matrix", "Interstellar", "Avatar"]
+After adding "Titanic" at end: ["The Dark Knight", "The Matrix", "Interstellar", "Avatar", "Titanic"]
+Position of "Interstellar": 2
+Is "Avatar" in collection? true
+Final collection size: 5
 ```
 
 ## 🚀 Bonus
-
-- Add a reset button to set counter back to 0
-- Change button color after 5 clicks
-- Add different buttons with different point values
+- Create a favorites array with the first 2 movies using `.slice()`
+- Try sorting the movies alphabetically
+- Add a duplicate movie and find all its occurrences
 
 ## ✅ Expected Topics Used
-
-- `addEventListener()`
-- `document.getElementById()`
-- Event handling
-- DOM content updates
+- Array creation with string values
+- `.shift()` and `.unshift()` methods
+- `.push()` method
+- `.indexOf()` method
+- `.includes()` method
+- Array length property
