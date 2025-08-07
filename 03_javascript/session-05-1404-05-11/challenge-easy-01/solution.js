@@ -109,6 +109,6 @@ const items = ["Item 1", "Item 2", "Item 3"];
 // printItem(1, items[1]);
 // printItem(2, items[2]);
 
-items.forEach((item, index) => {
-  console.log(index, item);
+items.forEach((item, index, array) => {
+  console.log(index, item, array);
 });
