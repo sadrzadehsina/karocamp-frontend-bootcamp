@@ -8,10 +8,26 @@ let totalSales = 0;
 // Create your functions here
 function getItemPrice(item) {
     // Add your switch statement here
+    switch (item) {
+        case "burger":
+            return 12.99;
+        case "pizza":
+            return 15.99;
+        default:
+            return 0;
+    }
 }
 
 function processOrder(customerName, items) {
     // Add your code here
+    console.log("Order for:", customerName);
+    let sum = 0;
+    items.forEach(item => {
+        console.log(`- ${item}: $`, getItemPrice(item));
+        sum += getItemPrice(item);
+    });
+    console.log(`Total: $${sum}`);
+    console.log("------------------")
 }
 
 // Test orders

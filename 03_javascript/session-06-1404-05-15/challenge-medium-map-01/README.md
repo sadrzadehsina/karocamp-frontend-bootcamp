@@ -2,7 +2,7 @@
 
 ## 📝 Description
 
-Transform an array of product objects using `.map()` to create a formatted product catalog with calculated prices and descriptions.
+Transform an array of product objects (JSON) using `.map()` to create a formatted product catalog with calculated prices and descriptions.
 
 ## 🎯 Objectives
 
