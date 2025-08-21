@@ -29,9 +29,9 @@ onBlur
 // const message = document.getElementById("message");
 // const btn = document.getElementById("btn");
 
-// btn.addEventListener("click", () => {
-//   console.log(message.value);
-// });
+btn.addEventListener("click", () => {
+  console.log(message.value);
+});
 
 // message.addEventListener("input", () => {
 //   console.log(message.value);

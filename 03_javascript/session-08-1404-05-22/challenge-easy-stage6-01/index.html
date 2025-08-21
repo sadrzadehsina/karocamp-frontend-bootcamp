@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 0.2rem 0;
+      }
+      .error {
+        color: red;
+      }
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="contactForm">
+      <div class="input-wrapper">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
+        <span class="error" id="nameError"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="email">Email:</label>
+        <input type="text" id="email" required />
+        <span class="error" id="emailError"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" required />
+        <span class="error" id="phoneError"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="message">Message:</label>
+        <input type="text" id="message" required />
+        <span class="error" id="messageError"></span>
+      </div>
+      <!-- Similar structure for other fields -->
+      <button type="button" id="sendMessageBtn">Send Message</button>
+    </form>
+    <div id="successMessage" class="success" style="display: none">All values are valid</div>
+
+    <script src="solution.js"></script>
+  </body>
+</html>
