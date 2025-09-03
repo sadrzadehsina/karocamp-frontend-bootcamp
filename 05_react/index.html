@@ -16,7 +16,11 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div style="font-family: 'sans-serif'; text-align: center; margin-top: 40px;">
+      <h1>Hello, React!</h1>
+      <p>Welcome to your counter app built with React.</p>
+      <div id="app"></div>
+    </div>
 
     <script type="text/babel">
       // Basic React App Example
@@ -27,9 +31,7 @@
         const [count, setCount] = useState(0);
 
         return (
-          <div style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '40px' }}>
-            <h1>Hello, React!</h1>
-            <p>Welcome to your first React app.</p>
+          <div>
             <div style={{ fontSize: '2rem', margin: '20px 0' }}>{count}</div>
             <button onClick={() => setCount(count + 1)} style={{ padding: '10px 20px', fontSize: '1rem' }}>
               Increase
@@ -41,7 +43,7 @@
         );
       }
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
+      const root = ReactDOM.createRoot(document.getElementById('app'));
       root.render(<App />);
     </script>
   </body>

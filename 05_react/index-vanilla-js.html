@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla JavaScript Counter</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        margin-top: 40px;
+      }
+      
+      .counter-display {
+        font-size: 2rem;
+        margin: 20px 0;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        margin-left: 10px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      
+      button:hover {
+        background-color: #0056b3;
+      }
+      
+      button:first-of-type {
+        margin-left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Hello, Vanilla JavaScript!</h1>
+      <p>Welcome to your counter app built with vanilla JS.</p>
+      <div id="counter" class="counter-display">0</div>
+      <button id="increase-btn">Increase</button>
+      <button id="decrease-btn">Decrease</button>
+    </div>
+
+    <script>
+      // Vanilla JavaScript Counter App
+
+      // Get DOM elements
+      const counterDisplay = document.getElementById('counter');
+      const increaseBtn = document.getElementById('increase-btn');
+      const decreaseBtn = document.getElementById('decrease-btn');
+
+      // Initialize counter state
+      let count = 0;
+
+      // Function to update the display
+      function updateDisplay() {
+        counterDisplay.textContent = count;
+      }
+
+      // Function to increase count
+      function increaseCount() {
+        count++;
+        updateDisplay();
+      }
+
+      // Function to decrease count
+      function decreaseCount() {
+        count--;
+        updateDisplay();
+      }
+
+      // Add event listeners
+      increaseBtn.addEventListener('click', increaseCount);
+      decreaseBtn.addEventListener('click', decreaseCount);
+
+      // Initialize display
+      updateDisplay();
+    </script>
+  </body>
+</html>
