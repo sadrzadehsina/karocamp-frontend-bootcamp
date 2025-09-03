@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- React and ReactDOM CDN -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      // Basic React App Example
+
+      const { useState } = React;
+
+      function App() {
+        const [count, setCount] = useState(0);
+
+        return (
+          <div style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '40px' }}>
+            <h1>Hello, React!</h1>
+            <p>Welcome to your first React app.</p>
+            <div style={{ fontSize: '2rem', margin: '20px 0' }}>{count}</div>
+            <button onClick={() => setCount(count + 1)} style={{ padding: '10px 20px', fontSize: '1rem' }}>
+              Increase
+            </button>
+            <button onClick={() => setCount(count - 1)} style={{ padding: '10px 20px', fontSize: '1rem', marginLeft: '10px' }}>
+              Decrease
+            </button>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
