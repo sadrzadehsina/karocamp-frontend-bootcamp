@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- text-red-50 - text-red-500 -->
+    <!-- bg-red-50 - bg-red-500 -->
+    <!-- 1.1 TAILWIND -->
+    <!-- 1. inline style -->
+    <!-- 2. external style - <style /> -->
+    <!-- 3. external style - <link /> -->
+  </head>
+  <body>
+    <div class="flex">
+      <form class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1">
+          <label for="username">Username</label>
+          <input id="username" class="color-blue border" />
+          <div class="error-message text-red-500" style="font-size: 12px">
+            This field is required
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email">Email</label>
+          <input id="email" class="border" />
+          <div class="error-message color-red">This field is required</div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="phone">Phone</label>
+          <input id="phone" class="border" />
+          <div class="error-message color-red bg-blue">
+            This field is required
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="biography">Biography</label>
+          <input id="biography" class="border" />
+          <div class="error-message color-red">This field is required</div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
