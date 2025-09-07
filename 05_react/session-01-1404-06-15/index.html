@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting Started With React!</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div style="font-family: 'sans-serif'; text-align: center; margin-top: 40px;">
+      <h1>Getting Started With React!</h1>
+      <div id="app"></div>
+    </div>
+
+    <script type="text/babel">
+      function ReactApp() {
+        return (
+          <div>
+            <h1 style={{ backgroundColor: "red" }}>React App</h1>
+            <Greeting />
+          </div>
+        )
+      }
+
+      function Greeting() {
+
+        const message = "Helloooooooo";
+
+        const users = [{ name: "John", email: "john@doe.com" }, {name: "Jane"}, {name: "Rose"}];
+        // users = [ReactElement]
+          
+        return (
+          <div>
+            <h2>{message}</h2>
+            <div id="users">
+              {
+                users.map(user => {
+                  return <User {...user} />
+                  // return <User user={user}/> 
+                  // return <User name={user.name} email={user.email} /> 
+                })
+              }
+            </div>
+          </div>
+        )
+      }
+
+      function User({ name, email }) {
+        return (
+            <div>
+              <span style={{ color: 'red' }}>{name} - {email}</span>
+            </div>
+          )
+      }
+
+      function sayHi({ name, email, phone = "913", address }) {
+
+        const users = ["John", "Jane", "Rose"];
+
+        for (let index = 0; index < users.length; index++) {
+          // users[index];
+        }
+
+        users.map(user => {
+          // user
+        })
+        
+        // address === undefined
+        // if (!address) {
+        //   return "no address";
+        // }
+
+        // // address !== undefined
+        // if (address) {
+
+        // }
+
+        // return !address && "no address";
+
+        if (address) {
+          return `Hello ${name} ${email} - ${phone}, ${address}`;
+        } else {
+          return `Hello ${name} ${email} - ${phone}`;
+        }
+
+        return address ? `Hello ${name} ${email} - ${phone}, ${address}` : `Hello ${name} ${email} - ${phone}`;
+      };
+
+      // name, email, phone
+      // name, email, phone = 913
+
+      sayHi({name: "John", email: "a@b.com", phone: "031" });
+      sayHi({name: "John", email: "a@b.com" });
+
+      const root = ReactDOM.createRoot(document.getElementById('app'));
+      root.render(<ReactApp />);
+    </script>
+  </body>
+</html>
