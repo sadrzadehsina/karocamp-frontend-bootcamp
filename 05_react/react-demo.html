@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Bootcamp Demo</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .demo-card h3 {
+            color: #1f2937;
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        .counter {
+            text-align: center;
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3b82f6;
+            margin: 20px 0;
+        }
+
+        .button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .button.secondary {
+            background: #6b7280;
+        }
+
+        .button.secondary:hover {
+            background: #4b5563;
+        }
+
+        .todo-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .todo-list {
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0 auto 16px;
+        }
+
+        .theme-switcher {
+            text-align: center;
+        }
+
+        .theme-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover,
+        .theme-btn.active {
+            border-color: #1f2937;
+            transform: scale(1.1);
+        }
+
+        .theme-blue { background: #3b82f6; }
+        .theme-green { background: #10b981; }
+        .theme-purple { background: #8b5cf6; }
+        .theme-pink { background: #ec4899; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .demo-card {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Counter Component
+        function Counter() {
+            const [count, setCount] = useState(0);
+
+            return (
+                <div className="demo-card">
+                    <h3>🔢 useState Counter</h3>
+                    <div className="counter">
+                        <div className="counter-display">{count}</div>
+                        <button className="button" onClick={() => setCount(count + 1)}>
+                            Increment
+                        </button>
+                        <button className="button secondary" onClick={() => setCount(0)}>
+                            Reset
+                        </button>
+                        <button className="button" onClick={() => setCount(count - 1)}>
+                            Decrement
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        // Todo Component
+        function TodoList() {
+            const [todos, setTodos] = useState([
+                { id: 1, text: 'Learn React basics', completed: true },
+                { id: 2, text: 'Build a todo app', completed: false },
+                { id: 3, text: 'Master hooks', completed: false }
+            ]);
+            const [inputValue, setInputValue] = useState('');
+
+            const addTodo = () => {
+                if (inputValue.trim()) {
+                    setTodos([...todos, {
+                        id: Date.now(),
+                        text: inputValue,
+                        completed: false
+                    }]);
+                    setInputValue('');
+                }
+            };
+
+            const toggleTodo = (id) => {
+                setTodos(todos.map(todo =>
+                    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+                ));
+            };
+
+            const deleteTodo = (id) => {
+                setTodos(todos.filter(todo => todo.id !== id));
+            };
+
+            return (
+                <div className="demo-card">
+                    <h3>📝 Todo List</h3>
+                    <input
+                        type="text"
+                        className="todo-input"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Add a new todo..."
+                        onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+                    />
+                    <button className="button" onClick={addTodo}>Add Todo</button>
+                    
+                    <ul className="todo-list">
+                        {todos.map(todo => (
+                            <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                                <span onClick={() => toggleTodo(todo.id)} style={{cursor: 'pointer'}}>
+                                    {todo.completed ? '✅' : '⏳'} {todo.text}
+                                </span>
+                                <button className="button secondary" onClick={() => deleteTodo(todo.id)}>
+                                    Delete
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        // Profile Component
+        function ProfileCard({ user }) {
+            if (!user) return null;
+
+            return (
+                <div className="demo-card">
+                    <h3>👤 User Profile</h3>
+                    <div className="profile-card">
+                        <div className="avatar">
+                            {user.name.charAt(0)}
+                        </div>
+                        <h4>{user.name}</h4>
+                        <p style={{color: '#6b7280', marginBottom: '8px'}}>{user.email}</p>
+                        <p style={{color: '#3b82f6', fontWeight: '600'}}>{user.role}</p>
+                        <p style={{fontSize: '14px', color: '#6b7280', marginTop: '12px'}}>
+                            {user.bio}
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Theme Switcher Component
+        function ThemeSwitcher() {
+            const [currentTheme, setCurrentTheme] = useState('blue');
+            
+            const themes = {
+                blue: { color: '#3b82f6', name: 'Ocean Blue' },
+                green: { color: '#10b981', name: 'Forest Green' },
+                purple: { color: '#8b5cf6', name: 'Royal Purple' },
+                pink: { color: '#ec4899', name: 'Cherry Pink' }
+            };
+
+            return (
+                <div className="demo-card">
+                    <h3>🎨 Theme Switcher</h3>
+                    <div className="theme-switcher">
+                        <p style={{marginBottom: '16px', color: themes[currentTheme].color, fontWeight: '600'}}>
+                            Current Theme: {themes[currentTheme].name}
+                        </p>
+                        <div className="theme-options">
+                            {Object.entries(themes).map(([key, theme]) => (
+                                <button
+                                    key={key}
+                                    className={`theme-btn theme-${key} ${currentTheme === key ? 'active' : ''}`}
+                                    onClick={() => setCurrentTheme(key)}
+                                    title={theme.name}
+                                />
+                            ))}
+                        </div>
+                        <div style={{
+                            padding: '20px',
+                            backgroundColor: themes[currentTheme].color + '20',
+                            border: `2px solid ${themes[currentTheme].color}`,
+                            borderRadius: '8px',
+                            color: themes[currentTheme].color,
+                            fontWeight: '600'
+                        }}>
+                            This is your {themes[currentTheme].name} theme!
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Clock Component (useEffect demo)
+        function Clock() {
+            const [time, setTime] = useState(new Date());
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTime(new Date());
+                }, 1000);
+
+                return () => clearInterval(timer);
+            }, []);
+
+            return (
+                <div className="demo-card">
+                    <h3>⏰ Live Clock</h3>
+                    <div style={{textAlign: 'center', fontSize: '2rem', fontWeight: 'bold', color: '#3b82f6'}}>
+                        {time.toLocaleTimeString()}
+                    </div>
+                    <p style={{textAlign: 'center', color: '#6b7280', marginTop: '8px'}}>
+                        {time.toLocaleDateString()}
+                    </p>
+                </div>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const sampleUser = {
+                name: "Sarah Johnson",
+                email: "sarah@example.com",
+                role: "React Developer",
+                bio: "Passionate about building beautiful user interfaces with React and modern web technologies."
+            };
+
+            return (
+                <div className="app">
+                    <div className="header">
+                        <h1>React Bootcamp</h1>
+                        <p>Interactive demos showcasing React fundamentals</p>
+                    </div>
+                    
+                    <div className="demo-grid">
+                        <Counter />
+                        <TodoList />
+                        <ProfileCard user={sampleUser} />
+                        <ThemeSwitcher />
+                        <Clock />
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
