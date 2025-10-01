@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice 02: useToggle Hook</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+            transition: background-color 0.3s;
+        }
+        body.dark {
+            background-color: #2c3e50;
+            color: white;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container.dark {
+            background: #34495e;
+            color: white;
+        }
+        .demo-box {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #4caf50;
+            transition: all 0.3s;
+        }
+        .demo-box.dark {
+            background: #1a252f;
+            border-color: #3498db;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        .menu {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 5px solid #ff9800;
+        }
+        .menu.dark {
+            background: #2c1810;
+            border-left-color: #f39c12;
+        }
+        .explanation {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            margin: 20px 0;
+        }
+        .explanation.dark {
+            background: #1e2833;
+        }
+        .code-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            color: #333;
+        }
+        .hidden {
+            display: none;
+        }
+        .sound-indicator {
+            font-size: 24px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // 🎯 OUR SUPER SIMPLE TOGGLE HOOK!
+        function useToggle(initialValue = false) {
+            // Just true or false
+            const [value, setValue] = useState(initialValue);
+            
+            // Function to flip between true and false
+            const toggle = () => {
+                setValue(!value); // ! means "opposite of"
+            };
+
+            // Return both the current value and the toggle function
+            return [value, toggle];
+        }
+
+        // 📱 Menu Component
+        function NavigationMenu({ isDarkMode }) {
+            // Start with menu hidden (false)
+            const [isMenuOpen, toggleMenu] = useToggle(false);
+
+            return (
+                <div className={`demo-box ${isDarkMode ? 'dark' : ''}`}>
+                    <h3>📱 Navigation Menu</h3>
+                    <button onClick={toggleMenu}>
+                        {isMenuOpen ? 'Hide Menu' : 'Show Menu'}
+                    </button>
+                    
+                    {/* Only show menu if isMenuOpen is true */}
+                    {isMenuOpen && (
+                        <div className={`menu ${isDarkMode ? 'dark' : ''}`}>
+                            <p>🏠 Home</p>
+                            <p>👤 About</p>
+                            <p>📞 Contact</p>
+                            <p>⚙️ Settings</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 🌙 Dark Mode Component
+        function ThemeToggle() {
+            // Start with light mode (false = light, true = dark)
+            const [isDarkMode, toggleDarkMode] = useToggle(false);
+
+            // Change the body class when dark mode changes
+            React.useEffect(() => {
+                if (isDarkMode) {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+            }, [isDarkMode]);
+
+            return (
+                <div className={`demo-box ${isDarkMode ? 'dark' : ''}`}>
+                    <h3>🌙 Dark Mode Toggle</h3>
+                    <button onClick={toggleDarkMode}>
+                        {isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}
+                    </button>
+                    <p>Current mode: <strong>{isDarkMode ? 'Dark' : 'Light'}</strong></p>
+                    
+                    {/* Pass isDarkMode to other components */}
+                    <NavigationMenu isDarkMode={isDarkMode} />
+                </div>
+            );
+        }
+
+        // 🔊 Sound Control Component
+        function SoundControl() {
+            // Start with sound ON (true)
+            const [isSoundOn, toggleSound] = useToggle(true);
+
+            return (
+                <div className="demo-box">
+                    <h3>🔊 Sound Control</h3>
+                    <div className="sound-indicator">
+                        {isSoundOn ? '🔊' : '🔇'}
+                    </div>
+                    <button onClick={toggleSound}>
+                        {isSoundOn ? 'Turn Sound OFF' : 'Turn Sound ON'}
+                    </button>
+                    <p>Sound is: <strong>{isSoundOn ? 'ON' : 'OFF'}</strong></p>
+                </div>
+            );
+        }
+
+        // 🔒 Privacy Mode Component
+        function PrivacyToggle() {
+            // Start with private mode OFF (false)
+            const [isPrivate, togglePrivate] = useToggle(false);
+
+            return (
+                <div className="demo-box">
+                    <h3>🔒 Privacy Mode</h3>
+                    <button onClick={togglePrivate}>
+                        {isPrivate ? '👁️ Show Content' : '🙈 Hide Content'}
+                    </button>
+                    
+                    <div style={{marginTop: '15px'}}>
+                        {isPrivate ? (
+                            <p>🔒 Content is hidden for privacy</p>
+                        ) : (
+                            <div>
+                                <p>📧 john@example.com</p>
+                                <p>📱 +1 (555) 123-4567</p>
+                                <p>🏠 123 Main Street, City</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        // 📱 Main App Component
+        function App() {
+            return (
+                <div className="container">
+                    <h1>🎉 Practice 02: useToggle Hook</h1>
+                    
+                    <div className="explanation">
+                        <h3>💡 What's a Toggle?</h3>
+                        <p>A toggle is like a light switch - it can be ON or OFF, and you can flip between them!</p>
+                        <p>Our <code>useToggle</code> hook makes it super easy to create any kind of on/off functionality.</p>
+                    </div>
+
+                    {/* All these components use the same useToggle hook! */}
+                    <ThemeToggle />
+                    <SoundControl />
+                    <PrivacyToggle />
+
+                    <div className="explanation">
+                        <h3>🔍 The useToggle Hook Code:</h3>
+                        <div className="code-box">
+                            function useToggle(initialValue = false) &#123;<br/>
+                            &nbsp;&nbsp;const [value, setValue] = useState(initialValue);<br/>
+                            &nbsp;&nbsp;const toggle = () =&gt; setValue(!value);<br/>
+                            &nbsp;&nbsp;return [value, toggle];<br/>
+                            &#125;
+                        </div>
+                        <p><strong>Super simple!</strong> Just 4 lines of code, but so useful!</p>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>✅ How We Used It:</h3>
+                        <ul>
+                            <li><code>const [isDarkMode, toggleDarkMode] = useToggle(false);</code></li>
+                            <li><code>const [isSoundOn, toggleSound] = useToggle(true);</code></li>
+                            <li><code>const [isPrivate, togglePrivate] = useToggle(false);</code></li>
+                            <li><code>const [isMenuOpen, toggleMenu] = useToggle(false);</code></li>
+                        </ul>
+                        <p>Same hook, different purposes! 🎯</p>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>🎯 Try This:</h3>
+                        <ol>
+                            <li>Toggle dark mode and see how it affects everything</li>
+                            <li>Open/close the menu multiple times</li>
+                            <li>Turn sound on/off and see the icon change</li>
+                            <li>Hide/show private content</li>
+                            <li>Notice how each toggle works independently!</li>
+                        </ol>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

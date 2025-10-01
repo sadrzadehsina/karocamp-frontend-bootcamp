@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice 01: What is a Custom Hook?</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .counter-box {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #4caf50;
+        }
+        .counter-display {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            color: #2196f3;
+            margin: 20px 0;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        .reset-btn {
+            background: #ff9800;
+        }
+        .reset-btn:hover {
+            background: #f57c00;
+        }
+        .explanation {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 20px 0;
+        }
+        .code-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // 🎯 THIS IS OUR CUSTOM HOOK! 
+        // It's just a function that starts with "use"
+        function useCounter(initialValue = 0) {
+            // We use React's useState inside our custom hook
+            const [count, setCount] = useState(initialValue);
+
+            // We create helpful functions
+            const increment = () => {
+                setCount(count + 1);
+            };
+
+            const decrement = () => {
+                setCount(count - 1);
+            };
+
+            const reset = () => {
+                setCount(initialValue);
+            };
+
+            // We return everything that other components might need
+            return {
+                count,        // the current number
+                increment,    // function to add 1
+                decrement,    // function to subtract 1
+                reset         // function to go back to start
+            };
+        }
+
+        // 🏠 First component using our custom hook
+        function LivingRoomCounter() {
+            // Look how simple this is! We just use our custom hook
+            const { count, increment, decrement, reset } = useCounter(0);
+
+            return (
+                <div className="counter-box">
+                    <h3>🏠 Living Room People Counter</h3>
+                    <div className="counter-display">{count} people</div>
+                    <div>
+                        <button onClick={increment}>Person Entered (+1)</button>
+                        <button onClick={decrement}>Person Left (-1)</button>
+                        <button onClick={reset} className="reset-btn">Reset</button>
+                    </div>
+                </div>
+            );
+        }
+
+        // 🍕 Second component using the SAME custom hook
+        function PizzaCounter() {
+            // Same hook, but this time we start with 10 pizzas
+            const { count, increment, decrement, reset } = useCounter(10);
+
+            return (
+                <div className="counter-box">
+                    <h3>🍕 Pizza Counter</h3>
+                    <div className="counter-display">{count} pizzas</div>
+                    <div>
+                        <button onClick={increment}>Made Pizza (+1)</button>
+                        <button onClick={decrement}>Ate Pizza (-1)</button>
+                        <button onClick={reset} className="reset-btn">Reset to 10</button>
+                    </div>
+                </div>
+            );
+        }
+
+        // 📱 Main App component
+        function App() {
+            return (
+                <div className="container">
+                    <h1>🎉 Practice 01: What is a Custom Hook?</h1>
+                    
+                    <div className="explanation">
+                        <h3>💡 What's happening here?</h3>
+                        <p>We created ONE custom hook called <code>useCounter</code> and used it in TWO different components!</p>
+                        <ul>
+                            <li>The Living Room counter starts at 0</li>
+                            <li>The Pizza counter starts at 10</li>
+                            <li>Both use the SAME custom hook logic</li>
+                            <li>They work independently (changing one doesn't affect the other)</li>
+                        </ul>
+                    </div>
+
+                    {/* Using our components */}
+                    <LivingRoomCounter />
+                    <PizzaCounter />
+
+                    <div className="explanation">
+                        <h3>🔍 The Custom Hook Code:</h3>
+                        <div className="code-box">
+                            function useCounter(initialValue = 0) &#123;<br/>
+                            &nbsp;&nbsp;const [count, setCount] = useState(initialValue);<br/>
+                            &nbsp;&nbsp;const increment = () =&gt; setCount(count + 1);<br/>
+                            &nbsp;&nbsp;const decrement = () =&gt; setCount(count - 1);<br/>
+                            &nbsp;&nbsp;const reset = () =&gt; setCount(initialValue);<br/>
+                            &nbsp;&nbsp;return &#123; count, increment, decrement, reset &#125;;<br/>
+                            &#125;
+                        </div>
+                        <p><strong>That's it!</strong> A custom hook is just a function that uses other hooks.</p>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>✅ Why Custom Hooks are Amazing:</h3>
+                        <ul>
+                            <li><strong>No Repetition:</strong> Write the logic once, use it everywhere</li>
+                            <li><strong>Easy to Understand:</strong> Each hook has a clear purpose</li>
+                            <li><strong>Easy to Test:</strong> You can test the hook separately</li>
+                            <li><strong>Easy to Share:</strong> Other developers can use your hooks</li>
+                        </ul>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>🎯 Try This:</h3>
+                        <ol>
+                            <li>Click the buttons and see how each counter works independently</li>
+                            <li>Notice that both counters have the same functions (increment, decrement, reset)</li>
+                            <li>Imagine if you had 10 different counters - you'd use the same hook for all!</li>
+                        </ol>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

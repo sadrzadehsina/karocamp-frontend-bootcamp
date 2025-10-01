@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice 04: Simple useFetch Hook</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .demo-box {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #4caf50;
+            min-height: 200px;
+        }
+        .loading {
+            text-align: center;
+            color: #2196f3;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+        }
+        .error {
+            text-align: center;
+            color: #f44336;
+            font-size: 18px;
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #f44336;
+        }
+        .joke-card {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 15px 0;
+        }
+        .fact-card {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #2196f3;
+            margin: 15px 0;
+        }
+        .user-card {
+            background: #f3e5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #9c27b0;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        .refresh-btn {
+            background: #4caf50;
+        }
+        .refresh-btn:hover {
+            background: #388e3c;
+        }
+        .explanation {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 20px 0;
+        }
+        .code-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            color: #333;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2196f3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // 🎯 OUR SIMPLE FETCH HOOK!
+        function useFetch(url) {
+            const [data, setData] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+
+            useEffect(() => {
+                // If no URL, don't fetch anything
+                if (!url) {
+                    setLoading(false);
+                    return;
+                }
+
+                // Reset state when URL changes
+                setLoading(true);
+                setError(null);
+                setData(null);
+
+                console.log('🌐 Fetching data from:', url);
+
+                // Fetch the data
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('✅ Data received:', data);
+                        setData(data);
+                        setLoading(false);
+                    })
+                    .catch(error => {
+                        console.log('❌ Error fetching data:', error);
+                        setError(error.message);
+                        setLoading(false);
+                    });
+            }, [url]); // Re-run when URL changes
+
+            return { data, loading, error };
+        }
+
+        // 😂 Joke Component
+        function JokeFetcher() {
+            const [jokeUrl, setJokeUrl] = useState('');
+            const { data: joke, loading, error } = useFetch(jokeUrl);
+
+            const fetchNewJoke = () => {
+                setJokeUrl('https://official-joke-api.appspot.com/random_joke');
+            };
+
+            return (
+                <div className="demo-box">
+                    <h3>😂 Random Joke Fetcher</h3>
+                    
+                    <button onClick={fetchNewJoke} className="refresh-btn">
+                        Get Random Joke!
+                    </button>
+
+                    {loading && (
+                        <div className="loading">
+                            <div>
+                                <div className="spinner"></div>
+                                <p>Getting a joke for you... 😄</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="error">
+                            😔 Oops! Couldn't get a joke right now.<br/>
+                            <small>{error}</small>
+                        </div>
+                    )}
+
+                    {joke && !loading && (
+                        <div className="joke-card">
+                            <h4>🎭 {joke.setup}</h4>
+                            <p><strong>🎪 {joke.punchline}</strong></p>
+                            <small>Type: {joke.type}</small>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 🐱 Cat Fact Component
+        function CatFactFetcher() {
+            const [factUrl, setFactUrl] = useState('');
+            const { data: catData, loading, error } = useFetch(factUrl);
+
+            const fetchCatFact = () => {
+                setFactUrl('https://catfact.ninja/fact');
+            };
+
+            return (
+                <div className="demo-box">
+                    <h3>🐱 Random Cat Fact</h3>
+                    
+                    <button onClick={fetchCatFact} className="refresh-btn">
+                        Get Cat Fact! 🐾
+                    </button>
+
+                    {loading && (
+                        <div className="loading">
+                            <div>
+                                <div className="spinner"></div>
+                                <p>Fetching cat wisdom... 🐱</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="error">
+                            😿 Couldn't get cat facts right now.<br/>
+                            <small>{error}</small>
+                        </div>
+                    )}
+
+                    {catData && !loading && (
+                        <div className="fact-card">
+                            <h4>🐾 Cat Fact:</h4>
+                            <p>{catData.fact}</p>
+                            <small>Fact length: {catData.length} characters</small>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 👤 Random User Component  
+        function RandomUserFetcher() {
+            const [userUrl, setUserUrl] = useState('');
+            const { data: userData, loading, error } = useFetch(userUrl);
+
+            const fetchRandomUser = () => {
+                setUserUrl('https://randomuser.me/api/');
+            };
+
+            return (
+                <div className="demo-box">
+                    <h3>👤 Random User Generator</h3>
+                    
+                    <button onClick={fetchRandomUser} className="refresh-btn">
+                        Get Random User! 👥
+                    </button>
+
+                    {loading && (
+                        <div className="loading">
+                            <div>
+                                <div className="spinner"></div>
+                                <p>Generating a random person... 👤</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="error">
+                            😔 Couldn't generate a user right now.<br/>
+                            <small>{error}</small>
+                        </div>
+                    )}
+
+                    {userData && userData.results && !loading && (
+                        <div className="user-card">
+                            <img 
+                                src={userData.results[0].picture.large} 
+                                alt="User"
+                                className="user-avatar"
+                            />
+                            <div>
+                                <h4>
+                                    {userData.results[0].name.first} {userData.results[0].name.last}
+                                </h4>
+                                <p>📧 {userData.results[0].email}</p>
+                                <p>📍 {userData.results[0].location.city}, {userData.results[0].location.country}</p>
+                                <p>🎂 Age: {userData.results[0].dob.age}</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 📱 Main App Component
+        function App() {
+            return (
+                <div className="container">
+                    <h1>🎉 Practice 04: Simple useFetch Hook</h1>
+                    
+                    <div className="explanation">
+                        <h3>💡 What's Fetching Data?</h3>
+                        <p>Fetching data means asking for information from the internet! Like asking a website for jokes, facts, or user information.</p>
+                        <p>Our <code>useFetch</code> hook makes it super easy to get data from any website.</p>
+                    </div>
+
+                    <JokeFetcher />
+                    <CatFactFetcher />
+                    <RandomUserFetcher />
+
+                    <div className="explanation">
+                        <h3>🔍 The useFetch Hook Code:</h3>
+                        <div className="code-box">
+                            function useFetch(url) &#123;<br/>
+                            &nbsp;&nbsp;const [data, setData] = useState(null);<br/>
+                            &nbsp;&nbsp;const [loading, setLoading] = useState(true);<br/>
+                            &nbsp;&nbsp;const [error, setError] = useState(null);<br/>
+                            <br/>
+                            &nbsp;&nbsp;useEffect(() =&gt; &#123;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;fetch(url)<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(response =&gt; response.json())<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.then(data =&gt; &#123;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setData(data);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLoading(false);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;)<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.catch(error =&gt; &#123;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setError(error);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLoading(false);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;);<br/>
+                            &nbsp;&nbsp;&#125;, [url]);<br/>
+                            <br/>
+                            &nbsp;&nbsp;return &#123; data, loading, error &#125;;<br/>
+                            &#125;
+                        </div>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>✅ How We Used It:</h3>
+                        <ul>
+                            <li><code>const &#123; data: joke, loading, error &#125; = useFetch(jokeUrl);</code></li>
+                            <li><code>const &#123; data: catData, loading, error &#125; = useFetch(factUrl);</code></li>
+                            <li><code>const &#123; data: userData, loading, error &#125; = useFetch(userUrl);</code></li>
+                        </ul>
+                        <p>Same hook, different data sources! 🎯</p>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>🎯 Cool Things to Notice:</h3>
+                        <ol>
+                            <li><strong>Loading State:</strong> Shows spinner while waiting for data</li>
+                            <li><strong>Error Handling:</strong> Shows helpful message if something goes wrong</li>
+                            <li><strong>Reusable:</strong> Same hook works for jokes, facts, and users!</li>
+                            <li><strong>Automatic:</strong> Fetches data when URL changes</li>
+                            <li><strong>Clean:</strong> Components just focus on displaying data</li>
+                        </ol>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>🌐 APIs Used in This Demo:</h3>
+                        <ul>
+                            <li><strong>Jokes:</strong> official-joke-api.appspot.com</li>
+                            <li><strong>Cat Facts:</strong> catfact.ninja</li>
+                            <li><strong>Random Users:</strong> randomuser.me</li>
+                        </ul>
+                        <p>These are free APIs that anyone can use to practice! 🎓</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

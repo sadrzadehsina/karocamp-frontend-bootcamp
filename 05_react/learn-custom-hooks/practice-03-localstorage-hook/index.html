@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice 03: useLocalStorage Hook</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .demo-box {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #4caf50;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .input-group input:focus, .input-group select:focus {
+            border-color: #2196f3;
+            outline: none;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        .danger {
+            background: #f44336;
+        }
+        .danger:hover {
+            background: #d32f2f;
+        }
+        .profile-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .profile-card h2 {
+            margin: 0 0 10px 0;
+        }
+        .explanation {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 20px 0;
+        }
+        .code-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            color: #333;
+        }
+        .success-box {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // 🎯 OUR AMAZING LOCALSTORAGE HOOK!
+        function useLocalStorage(key, initialValue) {
+            // Get the value from localStorage when the component first loads
+            const [storedValue, setStoredValue] = useState(() => {
+                try {
+                    // Try to get the item from localStorage
+                    const item = window.localStorage.getItem(key);
+                    // If it exists, use it. If not, use the initial value
+                    return item ? JSON.parse(item) : initialValue;
+                } catch (error) {
+                    // If something goes wrong, just use the initial value
+                    console.log('Error reading from localStorage:', error);
+                    return initialValue;
+                }
+            });
+
+            // Function to update both state and localStorage
+            const setValue = (value) => {
+                try {
+                    // Update the state
+                    setStoredValue(value);
+                    // Save to localStorage
+                    window.localStorage.setItem(key, JSON.stringify(value));
+                    console.log(`💾 Saved "${key}" to localStorage:`, value);
+                } catch (error) {
+                    console.log('Error saving to localStorage:', error);
+                }
+            };
+
+            return [storedValue, setValue];
+        }
+
+        // 👤 User Profile Component
+        function UserProfile() {
+            // These will be saved to localStorage automatically!
+            const [name, setName] = useLocalStorage('userName', '');
+            const [email, setEmail] = useLocalStorage('userEmail', '');
+            const [favoriteColor, setFavoriteColor] = useLocalStorage('favoriteColor', '#2196f3');
+            const [age, setAge] = useLocalStorage('userAge', '');
+
+            return (
+                <div className="demo-box">
+                    <h3>👤 Your Profile (Saved Automatically!)</h3>
+                    
+                    <div className="input-group">
+                        <label>Your Name:</label>
+                        <input 
+                            type="text" 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Enter your name"
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label>Your Email:</label>
+                        <input 
+                            type="email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label>Your Age:</label>
+                        <input 
+                            type="number" 
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                            placeholder="Enter your age"
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label>Favorite Color:</label>
+                        <select 
+                            value={favoriteColor}
+                            onChange={(e) => setFavoriteColor(e.target.value)}
+                        >
+                            <option value="#2196f3">Blue</option>
+                            <option value="#4caf50">Green</option>
+                            <option value="#ff9800">Orange</option>
+                            <option value="#9c27b0">Purple</option>
+                            <option value="#f44336">Red</option>
+                            <option value="#607d8b">Gray</option>
+                        </select>
+                    </div>
+
+                    {/* Show profile card if name is entered */}
+                    {name && (
+                        <div className="profile-card" style={{backgroundColor: favoriteColor}}>
+                            <h2>Hello, {name}! 👋</h2>
+                            {email && <p>📧 {email}</p>}
+                            {age && <p>🎂 {age} years old</p>}
+                            <p>💖 Favorite color: {favoriteColor}</p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // 📝 Todo List Component
+        function TodoList() {
+            const [todos, setTodos] = useLocalStorage('todoList', []);
+            const [newTodo, setNewTodo] = useState('');
+
+            const addTodo = () => {
+                if (newTodo.trim()) {
+                    const todo = {
+                        id: Date.now(),
+                        text: newTodo,
+                        completed: false
+                    };
+                    setTodos([...todos, todo]);
+                    setNewTodo('');
+                }
+            };
+
+            const toggleTodo = (id) => {
+                setTodos(todos.map(todo => 
+                    todo.id === id ? {...todo, completed: !todo.completed} : todo
+                ));
+            };
+
+            const deleteTodo = (id) => {
+                setTodos(todos.filter(todo => todo.id !== id));
+            };
+
+            return (
+                <div className="demo-box">
+                    <h3>📝 Your Todo List (Never Lost!)</h3>
+                    
+                    <div className="input-group">
+                        <input 
+                            type="text" 
+                            value={newTodo}
+                            onChange={(e) => setNewTodo(e.target.value)}
+                            placeholder="Add a new todo..."
+                            onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+                        />
+                        <button onClick={addTodo}>Add Todo</button>
+                    </div>
+
+                    {todos.length === 0 ? (
+                        <p>No todos yet. Add one above! ⬆️</p>
+                    ) : (
+                        <ul style={{listStyle: 'none', padding: 0}}>
+                            {todos.map(todo => (
+                                <li key={todo.id} style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '10px',
+                                    margin: '5px 0',
+                                    backgroundColor: todo.completed ? '#d4edda' : '#f8f9fa',
+                                    borderRadius: '5px',
+                                    textDecoration: todo.completed ? 'line-through' : 'none'
+                                }}>
+                                    <input 
+                                        type="checkbox"
+                                        checked={todo.completed}
+                                        onChange={() => toggleTodo(todo.id)}
+                                        style={{marginRight: '10px'}}
+                                    />
+                                    <span style={{flex: 1}}>{todo.text}</span>
+                                    <button 
+                                        onClick={() => deleteTodo(todo.id)}
+                                        className="danger"
+                                        style={{marginLeft: '10px'}}
+                                    >
+                                        Delete
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            );
+        }
+
+        // 🎮 Settings Component
+        function AppSettings() {
+            const [settings, setSettings] = useLocalStorage('appSettings', {
+                notifications: true,
+                darkMode: false,
+                language: 'English',
+                autoSave: true
+            });
+
+            const updateSetting = (key, value) => {
+                setSettings({...settings, [key]: value});
+            };
+
+            const resetAllData = () => {
+                if (confirm('Are you sure you want to clear ALL saved data?')) {
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            };
+
+            return (
+                <div className="demo-box">
+                    <h3>⚙️ App Settings</h3>
+                    
+                    <div className="input-group">
+                        <label>
+                            <input 
+                                type="checkbox"
+                                checked={settings.notifications}
+                                onChange={(e) => updateSetting('notifications', e.target.checked)}
+                            />
+                            Enable Notifications
+                        </label>
+                    </div>
+
+                    <div className="input-group">
+                        <label>
+                            <input 
+                                type="checkbox"
+                                checked={settings.darkMode}
+                                onChange={(e) => updateSetting('darkMode', e.target.checked)}
+                            />
+                            Dark Mode
+                        </label>
+                    </div>
+
+                    <div className="input-group">
+                        <label>Language:</label>
+                        <select 
+                            value={settings.language}
+                            onChange={(e) => updateSetting('language', e.target.value)}
+                        >
+                            <option value="English">English</option>
+                            <option value="Spanish">Español</option>
+                            <option value="French">Français</option>
+                            <option value="German">Deutsch</option>
+                        </select>
+                    </div>
+
+                    <div className="input-group">
+                        <label>
+                            <input 
+                                type="checkbox"
+                                checked={settings.autoSave}
+                                onChange={(e) => updateSetting('autoSave', e.target.checked)}
+                            />
+                            Auto-save data
+                        </label>
+                    </div>
+
+                    <button onClick={resetAllData} className="danger">
+                        🗑️ Clear All Data
+                    </button>
+                </div>
+            );
+        }
+
+        // 📱 Main App Component
+        function App() {
+            return (
+                <div className="container">
+                    <h1>🎉 Practice 03: useLocalStorage Hook</h1>
+                    
+                    <div className="explanation">
+                        <h3>💡 What's LocalStorage?</h3>
+                        <p>LocalStorage is like a notebook in your browser that remembers things even after you close the page!</p>
+                        <p>Our <code>useLocalStorage</code> hook automatically saves and loads data for you.</p>
+                    </div>
+
+                    <div className="success-box">
+                        <strong>🧪 Test it out:</strong> Fill in the forms below, then <strong>refresh this page (F5)</strong>. 
+                        Your data will still be there! ✨
+                    </div>
+
+                    <UserProfile />
+                    <TodoList />
+                    <AppSettings />
+
+                    <div className="explanation">
+                        <h3>🔍 The useLocalStorage Hook Code:</h3>
+                        <div className="code-box">
+                            function useLocalStorage(key, initialValue) &#123;<br/>
+                            &nbsp;&nbsp;// Get saved value when component loads<br/>
+                            &nbsp;&nbsp;const [value, setValue] = useState(() =&gt; &#123;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;const saved = localStorage.getItem(key);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return saved ? JSON.parse(saved) : initialValue;<br/>
+                            &nbsp;&nbsp;&#125;);<br/>
+                            <br/>
+                            &nbsp;&nbsp;// Save to localStorage when value changes<br/>
+                            &nbsp;&nbsp;const updateValue = (newValue) =&gt; &#123;<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;setValue(newValue);<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;localStorage.setItem(key, JSON.stringify(newValue));<br/>
+                            &nbsp;&nbsp;&#125;;<br/>
+                            <br/>
+                            &nbsp;&nbsp;return [value, updateValue];<br/>
+                            &#125;
+                        </div>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>✅ How We Used It:</h3>
+                        <ul>
+                            <li><code>const [name, setName] = useLocalStorage('userName', '');</code></li>
+                            <li><code>const [todos, setTodos] = useLocalStorage('todoList', []);</code></li>
+                            <li><code>const [settings, setSettings] = useLocalStorage('appSettings', &#123;...&#125;);</code></li>
+                        </ul>
+                        <p>Each one gets its own "key" so they don't mix up! 🗂️</p>
+                    </div>
+
+                    <div className="explanation">
+                        <h3>🎯 Cool Things to Try:</h3>
+                        <ol>
+                            <li>Fill out your profile completely</li>
+                            <li>Add several todos and check some off</li>
+                            <li>Change your settings</li>
+                            <li><strong>Refresh the page (F5)</strong> - everything stays!</li>
+                            <li>Close the browser and come back - still there!</li>
+                            <li>Open DevTools (F12) → Application → Local Storage to see the data</li>
+                        </ol>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
